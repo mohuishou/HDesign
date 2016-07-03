@@ -19,31 +19,28 @@
                     <h1>{{$title}}</h1>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>中文标题</th>
-                                <th>英文标题</th>
-                                <th>操作</th>
-                            </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>中文标题</th>
+                            <th>英文标题</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $cate)
-                                <tr>
-                                    <td>{{$cate->id}}</td>
-                                    <td>{{$cate->cn_title}}</td>
-                                    <td>{{$cate->en_title}}</td>
-                                    <td>
-                                        @if($cate->pid==0)
-                                            <a class="btn btn-brand waves-attach waves-effect" href="/admin/category?pid={{$cate->id}}&title={{$cate->cn_title}}">查看子目录</a>
-                                        @else
-                                            <a class="btn btn-brand waves-attach waves-effect" href="/admin/album?cid={{$cate->id}}&title={{$cate->cn_title}}">查看图集</a>
-                                        @endif
-                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$cate->id}}','{{$cate->pid}}','{{$cate->cn_title}}','{{$cate->en_title}}');">更新</a>
-                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$cate->id}})">删除</a>
-                                    </td>
-                                </tr>
+                        @foreach($albums as $album)
+                            <tr>
+                                <td>{{$album->id}}</td>
+                                <td>{{$album->cn_title}}</td>
+                                <td>{{$album->en_title}}</td>
+                                <td>{{$album->description}}</td>
+                                <td>
+                                    <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
+                                    <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
+                                </td>
+                            </tr>
 
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -53,13 +50,13 @@
             </div>
         </div>
         <div class="col-md-3 fbtn-container">
-            <a data-toggle="modal" data-target="#category-add" class="fbtn waves-attach waves-circle waves-light fbtn-lg fbtn-brand"><i class="icon icon-lg">add</i> </a>
+            <a data-toggle="modal" data-target="#album-add" class="fbtn waves-attach waves-circle waves-light fbtn-lg fbtn-brand"><i class="icon icon-lg">add</i> </a>
         </div>
     </div>
 
 
     <!-- add Modal -->
-    <div aria-hidden="true" class="modal fade in" id="category-add" role="dialog" tabindex="-1" style="display: none;">
+    <div aria-hidden="true" class="modal fade in" id="album-add" role="dialog" tabindex="-1" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-heading">
@@ -71,9 +68,9 @@
                         {{ csrf_field() }}
                         <div class="form-group form-group-label">
                             <label class="floating-label" for="last">上级栏目 </label>
-                            <select class="form-control" id="last" required name="pid">
+                            <select class="form-control" id="last" required name="cid">
                                 <option value="0">顶级栏目</option>
-                                @foreach(App\Category::where('pid','0')->get() as $cate)
+                                @foreach(App\Category::where('pid','>','0')->get() as $cate)
                                         <option value="{{$cate->id}}">{{$cate->cn_title}}</option>
                                 @endforeach
 
@@ -86,6 +83,10 @@
                         <div class="form-group form-group-label">
                             <label class="floating-label" for="en-title">英文标题</label>
                             <input class="form-control" required id="en-title" name="en_title" type="text">
+                        </div>
+                        <div class="form-group form-group-label">
+                            <label class="floating-label" for="description">图集描述 </label>
+                            <textarea class="form-control textarea-autosize"  name="description" id="description" required maxlength="255" rows="2"></textarea>
                         </div>
                         <div>
                             <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
@@ -105,21 +106,21 @@
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('#last option[value={{$pid}}]').attr('selected','selected');
+            $('#last option[value={{$cid}}]').attr('selected','selected');
         });
-//        $("form").submit(function () {
-//            add();
-//            return false;
-//        });
+        //        $("form").submit(function () {
+        //            add();
+        //            return false;
+        //        });
 
         /**
          * 添加目录
          */
         function add() {
-            $('#category-add').modal('hide');
+            $('#album-add').modal('hide');
             $.ajax({
                 type: "POST",
-                url:'/admin/category/add',
+                url:'/admin/album/add',
                 data:$('form').serialize(),
                 error: function(request) {
                     swal('警告','服务器错误','warning');
@@ -142,17 +143,18 @@
             return false;
         }
 
-        function update(id,pid,cn_title,en_title) {
-            $('#category-add .modal-title').text('更新目录');
-            $('#category-add #cn-title').val(cn_title);
-            $('#category-add #en-title').val(en_title);
-            $('#category-add form').append("<input type='hidden' name='id' value="+id+">");
-            $('#category-add #post').attr('onclick','');
-            $('#category-add #post').click(function () {
-                $('#category-add').modal('hide');
+        function update(id,cn_title,en_title,description) {
+            $('#album-add .modal-title').text('更新目录');
+            $('#album-add #cn-title').val(cn_title);
+            $('#album-add #en-title').val(en_title);
+            $('#album-add #description').val(description);
+            $('#album-add form').append("<input type='hidden' name='id' value="+id+">");
+            $('#album-add #post').attr('onclick','');
+            $('#album-add #post').click(function () {
+                $('#album-add').modal('hide');
                 $.ajax({
                     type: "POST",
-                    url:'/admin/category/update',
+                    url:'/admin/album/update',
                     data:$('form').serialize(),
                     error: function(request) {
                         swal('警告','服务器错误','warning');
@@ -173,7 +175,7 @@
                     }
                 });
             });
-            $('#category-add').modal('show');
+            $('#album-add').modal('show');
         }
 
         /**
@@ -192,7 +194,7 @@
                 if (isConfirm === true) {
                     $.ajax({
                         type: "POST",
-                        url:'/admin/category/del?id='+id,
+                        url:'/admin/album/del?id='+id,
                         error: function(request) {
                             swal('Oops...', '服务器错误', 'error');
                         },
@@ -222,7 +224,7 @@
                 } else if (isConfirm === false) {
                     swal(
                             'Cancelled',
-                            '该目录未被删除)',
+                            '该图集未被删除)',
                             'error'
                     );
 
