@@ -18,3 +18,8 @@ function sConfig($name){
         return '没有值';
     }
 }
+
+function getPic($id){
+    $pic=App\Picture::find($id);
+    return $pic->path;
+}

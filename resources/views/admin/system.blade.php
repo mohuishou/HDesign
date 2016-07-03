@@ -26,7 +26,7 @@
                 <div class="card-main">
 
                     <div class="card-inner">
-                        <h1>系统设置</h1>
+                        <h2>系统设置</h2>
                         {{--<form class="">--}}
                             <div class=" form-group form-group-label">
                                 <label class="floating-label" for="web-name">站点名称</label>

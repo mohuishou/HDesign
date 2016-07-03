@@ -13,7 +13,7 @@ class Album extends Model
      */
     protected $guarded = ['id'];
 
-    public function categorys(){
+    public function categories(){
         return $this->belongsTo('App\Category','cid');
     }
 

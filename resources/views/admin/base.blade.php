@@ -8,7 +8,7 @@
         .admin-main{
             margin-top: 60px;
         }
-        .admin-main h1{
+        .admin-main h2{
             text-align: center;
         }
     </style>

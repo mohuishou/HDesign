@@ -91,6 +91,27 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'AlbumController@destroy'
         ]);
 
+        #图片路由
+        $app->get('picture',[
+            'as' => 'picture.show',
+            'uses' => 'PictureController@index'
+        ]);
+
+        $app->post('picture/add',[
+            'as' => 'picture.add',
+            'uses' => 'PictureController@add'
+        ]);
+
+        $app->post('picture/update',[
+            'as' => 'picture.update',
+            'uses' => 'PictureController@update'
+        ]);
+
+        $app->post('picture/del',[
+            'as' => 'picture.delete',
+            'uses' => 'PictureController@destroy'
+        ]);
+
     });
 
 

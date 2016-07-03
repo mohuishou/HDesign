@@ -16,7 +16,7 @@ class UploadController extends Controller{
      * 允许上传的文件类型
      * @var array
      */
-    public $_allow_extensions=["png", "jpg", "gif"];
+    static public $_allow_extensions=["png", "jpg", "gif"];
 
     /**
      * 单图上传
@@ -25,11 +25,15 @@ class UploadController extends Controller{
      * @return array
      */
     static public function picture(Request $request){
+        $allowed_extensions=["png", "jpg", "gif"];
         $file=$request->file('picture');
         if(!empty($file)){
             /*---------检查扩展名-----------*/
-            if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $this->_allowed_extensions)) {
-                return ['error' => 'You may only upload png, jpg or gif.'];
+            if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+                return [
+                    'status'=>0,
+                    'msg'=>'仅允许上传，jpg,png,gif文件'
+                ];
             }
             $fileName= $file->getClientOriginalName();
             $file_extensions=$file->getClientOriginalExtension();
@@ -62,12 +66,18 @@ class UploadController extends Controller{
      * @return array
      */
     static public function pictures(Request $request){
+        $allowed_extensions=["png", "jpg", "gif"];
         $files=$request->file('pictures');
+
+
         foreach ($files as $file) {
             if(!empty($file)){
                 /*---------检查扩展名-----------*/
-                if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $this->_allowed_extensions)) {
-                    return ['error' => 'You may only upload png, jpg or gif.'];
+                if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+                    return [
+                        'status'=>0,
+                        'msg'=>'仅允许上传，jpg,png,gif文件'
+                    ];
                 }
 
                 $fileName= $file->getClientOriginalName();
@@ -82,6 +92,11 @@ class UploadController extends Controller{
                 $pic=Picture::firstOrCreate(['path'=>$file_path]);
                 $pic->save();
 
+                return [
+                    'status'=>200,
+                    'path'=>asset($pic->path),
+                    'pid'=>$pic->id,
+                ];
             }else {
                 return [
                     'status'=>0,
@@ -90,11 +105,7 @@ class UploadController extends Controller{
                 break;
             }
         }
-        return [
-            'status'=>200,
-            'path'=>asset($pic->path),
-            'pid'=>$pic->id,
-        ];
+
     }
 
 

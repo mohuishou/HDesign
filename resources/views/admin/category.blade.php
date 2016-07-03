@@ -16,7 +16,7 @@
         <div class="card col-md-8 col-md-offset-2">
             <div class="card-main">
                 <div class="card-inner">
-                    <h1>{{$title}}</h1>
+                    <h2>{{$title}}</h2>
                     <table class="table">
                         <thead>
                             <tr>

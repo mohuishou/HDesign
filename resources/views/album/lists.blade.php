@@ -16,7 +16,7 @@
         <div class="card col-md-8 col-md-offset-2">
             <div class="card-main">
                 <div class="card-inner">
-                    <h1>{{$title}}</h1>
+                    <h2>{{$title}}</h2>
                     <table class="table">
                         <thead>
                         <tr>
@@ -35,6 +35,7 @@
                                 <td>{{$album->en_title}}</td>
                                 <td>{{$album->description}}</td>
                                 <td>
+                                    <a class="btn btn-brand waves-attach waves-effect" href="/admin/picture?aid={{$album->id}}&title={{$album->cn_title}}">查看图片</a>
                                     <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
                                     <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
                                 </td>
@@ -61,7 +62,7 @@
             <div class="modal-content">
                 <div class="modal-heading">
                     <a class="modal-close" data-dismiss="modal">×</a>
-                    <h2 class="modal-title">添加栏目</h2>
+                    <h2 class="modal-title">添加图集</h2>
                 </div>
                 <div class="modal-inner">
                     <form onsubmit="return false;">
@@ -69,7 +70,6 @@
                         <div class="form-group form-group-label">
                             <label class="floating-label" for="last">上级栏目 </label>
                             <select class="form-control" id="last" required name="cid">
-                                <option value="0">顶级栏目</option>
                                 @foreach(App\Category::where('pid','>','0')->get() as $cate)
                                         <option value="{{$cate->id}}">{{$cate->cn_title}}</option>
                                 @endforeach
@@ -89,7 +89,7 @@
                             <textarea class="form-control textarea-autosize"  name="description" id="description" required maxlength="255" rows="2"></textarea>
                         </div>
                         <div>
-                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
+                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onsubmit="add()">提交</button>
                         </div>
                     </form>
                 </div>
@@ -144,7 +144,7 @@
         }
 
         function update(id,cn_title,en_title,description) {
-            $('#album-add .modal-title').text('更新目录');
+            $('#album-add .modal-title').text('更新图集');
             $('#album-add #cn-title').val(cn_title);
             $('#album-add #en-title').val(en_title);
             $('#album-add #description').val(description);
