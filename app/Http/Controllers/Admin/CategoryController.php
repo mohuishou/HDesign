@@ -123,5 +123,14 @@ class CategoryController extends Controller
     }
 
 
+    public function getTwo(Request $request){
+        $cate=Category::where('pid',$request->pid)->get();
+        return [
+            'status'=>200,
+            'categories'=>$cate
+        ];
+    }
+
+
 
 }

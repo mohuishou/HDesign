@@ -31,12 +31,13 @@
             overflow: hidden;
         }
 
-        .img-list a:hover {
-            background: rgba(51, 51, 51, 0.5);
-        }
+        #cover{
+            position: absolute;
+            right:0;
+            top:0px;
+            width:40px;
+            height:40px;
 
-        .card {
-            /*background: #EEEEEE;*/
         }
 
 
@@ -63,11 +64,16 @@
                     @foreach($pictures as $picture)
                         <div class="box img-list">
                             <img class="img-thumbnail" src="{{asset(getPic($picture->id))}}"/>
+                            @if($cover==$picture->id)
+                                <img src="{{asset('images/cover.png')}}" id="cover">
+                            @endif
                             <div class="over-layer">
-                                <h3 class="title">删除图片？</h3>
+                                <h3 class="title">操作</h3>
                                 <p class="description">
                                     <a class="btn btn-flat btn-brand-accent"
                                        onclick="del('{{$aid}}','{{$picture->id}}')">点击删除</a>
+                                    <a class="btn btn-flat btn-brand-accent"
+                                       onclick="setCover('{{$aid}}','{{$picture->id}}')">设为封面</a>
                                 </p>
                             </div>
                         </div>
@@ -118,7 +124,37 @@
                     );
                 }
             });
-        })
+
+
+        });
+
+        function setCover(aid,pid){
+            $.ajax({
+                type: "POST",
+                url:'/admin/album/cover?aid='+aid+'&pid='+pid,
+                error: function(request) {
+                    swal('Oops...', '服务器错误', 'error');
+                },
+                success: function(data) {
+                    if(data.status==200){
+                        swal({
+                            title: 'Success',
+                            text: '设置成功',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: '更新页面'
+                        }).then(function(isConfirm) {
+                            if (isConfirm === true) {
+                                location.reload();
+                            }
+                        });
+                    }else {
+                        swal('Deleted!', '设置失败！<br />'+data.msg, 'error');
+                    }
+                    console.log(data);
+                }
+            });
+        }
 
         function del(aid, pid) {
             swal({

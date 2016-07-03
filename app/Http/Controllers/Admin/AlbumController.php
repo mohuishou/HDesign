@@ -95,6 +95,25 @@ class AlbumController extends Controller{
         }
     }
 
+    public function cover(Request $request){
+        $album=Album::find($request->aid);
+        $album->cover=$request->pid;
+        if($album->save()){
+            return [
+                'status'=>200,
+                'msg'=>'设置成功'
+            ];
+        }
+    }
+
+    public function getAlbum(Request $request){
+        $albums=Album::where('cid',$request->cid)->get();
+        return [
+            'status'=>200,
+            'albums'=>$albums
+        ];
+    }
+
 
 
 

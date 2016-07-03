@@ -15,9 +15,11 @@ use Illuminate\Http\Request;
 class PictureController extends Controller{
 
     public function index(Request $request){
-        $pictures=Album::find($request->aid)->pictures;
+        $album=Album::find($request->aid);
+        $pictures=$album->pictures;
         $data=[
             'aid'=>$request->aid,
+            'cover'=>$album->cover,
             'title'=>$request->title.'下的图片',
             'pictures'=>$pictures
         ];

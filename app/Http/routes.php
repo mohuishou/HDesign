@@ -55,6 +55,11 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'CategoryController@index'
         ]);
 
+        $app->get('category/getTwo',[
+            'as' => 'category.api.getTwo',
+            'uses' => 'CategoryController@getTwo'
+        ]);
+
         $app->post('category/add',[
             'as' => 'category.add',
             'uses' => 'CategoryController@add'
@@ -76,6 +81,11 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'AlbumController@index'
         ]);
 
+        $app->get('album/getAlbum',[
+            'as' => 'album.api.getAlbum',
+            'uses' => 'AlbumController@getAlbum'
+        ]);
+
         $app->post('album/add',[
             'as' => 'album.add',
             'uses' => 'AlbumController@add'
@@ -91,6 +101,11 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'AlbumController@destroy'
         ]);
 
+        $app->post('album/cover',[
+            'as' => 'album.cover',
+            'uses' => 'AlbumController@cover'
+        ]);
+
         #图片路由
         $app->get('picture',[
             'as' => 'picture.show',
@@ -102,14 +117,15 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'PictureController@add'
         ]);
 
-        $app->post('picture/update',[
-            'as' => 'picture.update',
-            'uses' => 'PictureController@update'
-        ]);
-
         $app->post('picture/del',[
             'as' => 'picture.delete',
             'uses' => 'PictureController@destroy'
+        ]);
+
+        #轮播路由
+        $app->get('slider',[
+            'as' => 'slider.show',
+            'uses' => 'SliderController@index'
         ]);
 
     });

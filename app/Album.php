@@ -21,4 +21,8 @@ class Album extends Model
     {
         return $this->belongsToMany('App\Picture');
     }
+
+    public function sliders(){
+        return $this->belongsTo('App\Slider','aid');
+    }
 }
