@@ -7,10 +7,10 @@
  */
 namespace App\Http\Controllers\Admin;
 
+use App\Album;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 
 /**
  * 目录、导航
@@ -22,6 +22,7 @@ class CategoryController extends Controller
     public function index(Request $request){
         $categories=Category::where('pid',$request->pid)->get();
         $data=[
+            'pid'=>$request->pid,
             'title'=>$request->title.'下的栏目',
             'categories'=>$categories
         ];
@@ -29,8 +30,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * [add description]
-     * @param Request $request [description]
+     * 新增目录
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return array
      */
     public function add(Request $request){
         $this->validate($request, [
@@ -49,23 +52,73 @@ class CategoryController extends Controller
     }
 
     /**
-     * [update description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * 更新目录
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return array
      */
     public function update(Request $request){
         $this->validate($request, [
             'en_title' => 'required|max:50',
             'cn_title'=>'required|max:50',
             'pid' => 'required|numeric',
+            'id' => 'required|numeric',
         ]);
 
         $cat=Category::find($request->id);
+        $cat->cn_title=$request->cn_title;
+        $cat->en_title=$request->en_title;
+        $cat->pid=$request->pid;
+        if($cat->save()){
+            return [
+                'status'=>200,
+                'msg'=>'更新成功'
+            ];
+        }else{
+            return [
+                'status'=>20005,
+                'msg'=>'更新失败'
+            ];
+        }
 
-        $cat->save($request->all());
+
     }
 
-    public function destroy(){
+
+    /**
+     * 删除
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return array
+     */
+    public function destroy(Request $request){
+        $this->validate($request, [
+            'id' => 'required|numeric',
+        ]);
+
+        $id=$request->id;
+
+        $cate=Category::where('pid',$id)->first();
+        if(!empty($cate->id))
+            return [
+                'status'=>20005,
+                'msg'=>'删除错误，在该目录下存在子目录！'
+            ];
+
+        $album=Album::where('cid','id')->first();
+
+        if(!empty($album->id))
+            return [
+                'status'=>20005,
+                'msg'=>'删除错误，在该目录下存在图集！'
+            ];
+
+        Category::find($id)->delete();
+
+        return [
+            'status'=>200,
+            'msg'=>'删除成功'
+        ];
 
     }
 

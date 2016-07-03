@@ -56,6 +56,16 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'CategoryController@add'
         ]);
 
+        $app->post('category/update',[
+            'as' => 'category.update',
+            'uses' => 'CategoryController@update'
+        ]);
+
+        $app->post('category/del',[
+            'as' => 'category.delete',
+            'uses' => 'CategoryController@destroy'
+        ]);
+
     });
 
 

@@ -2,6 +2,7 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
     <style>
         .fbtn-container{
             margin-bottom:50px;
@@ -32,8 +33,12 @@
                                     <td>{{$cate->cn_title}}</td>
                                     <td>{{$cate->en_title}}</td>
                                     <td>
-                                        <a class="btn btn-flat">更新</a>
-                                        <a class="btn btn-flat">删除</a>
+                                        @if($cate->pid==0)
+                                            <a class="btn btn-brand waves-attach waves-effect" href="/admin/category?pid={{$cate->id}}&title={{$cate->cn_title}}">查看子目录</a>
+                                        @else
+                                        @endif
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$cate->id}}','{{$cate->pid}}','{{$cate->cn_title}}','{{$cate->en_title}}');">更新</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$cate->id}})">删除</a>
                                     </td>
                                 </tr>
 
@@ -52,7 +57,7 @@
     </div>
 
 
-    <!-- Modal -->
+    <!-- add Modal -->
     <div aria-hidden="true" class="modal fade in" id="category-add" role="dialog" tabindex="-1" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,14 +66,18 @@
                     <h2 class="modal-title">添加栏目</h2>
                 </div>
                 <div class="modal-inner">
-                    <form>
+                    <form onsubmit="return false;">
+                        {{ csrf_field() }}
                         <div class="form-group form-group-label">
                             <label class="floating-label" for="last">上级栏目 </label>
                             <select class="form-control" id="last" required name="pid">
                                 <option value="0">顶级栏目</option>
-                                @foreach(App\Category::where('pid','0')->get() as $category)
-                                    <option value="{{$category->id}}">{{$category->cn_title}}</option>
+                                @foreach(App\Category::where('pid','0')->get() as $cate)
+                                    <li>
+                                        <option value="{{$cate->id}}">{{$cate->cn_title}}</option>
+                                    </li>
                                 @endforeach
+
                             </select>
                         </div>
                         <div class="form-group form-group-label">
@@ -80,7 +89,7 @@
                             <input class="form-control" required id="en-title" name="en_title" type="text">
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-flat btn-block waves-attach waves-light">提交</button>
+                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
                         </div>
                     </form>
                 </div>
@@ -88,35 +97,141 @@
             </div>
         </div>
     </div>
+
+
+
 @endsection
 @section('script')
     @parent
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script>
-
-        $("form").submit(function () {
-            add();
-            return false;
+        $(document).ready(function () {
+            $('#last option[value={{$pid}}]').attr('selected','selected');
         });
+//        $("form").submit(function () {
+//            add();
+//            return false;
+//        });
+
+        /**
+         * 添加目录
+         */
         function add() {
+            $('#category-add').modal('hide');
             $.ajax({
                 type: "POST",
                 url:'/admin/category/add',
                 data:$('form').serialize(),
                 error: function(request) {
-
+                    swal('警告','服务器错误','warning');
                 },
                 success: function(data) {
                     if(data.status==200){
-
-//                        location.href=data.backUrl;
+                        swal({
+                            title: '添加成功',
+                            text: '添加成功',
+                            type: 'success'
+                        }).then(function(isConfirm) {
+                            location.reload();
+                        });
                     }else {
-
+                        swal('警告','添加失败，请稍后重试','warning');
                     }
                     console.log(data);
                 }
             });
             return false;
+        }
+
+        function update(id,pid,cn_title,en_title) {
+            $('#category-add .modal-title').text('更新目录');
+            $('#category-add #cn-title').val(cn_title);
+            $('#category-add #en-title').val(en_title);
+            $('#category-add form').append("<input type='hidden' name='id' value="+id+">");
+            $('#category-add #post').attr('onclick','');
+            $('#category-add #post').click(function () {
+                $('#category-add').modal('hide');
+                $.ajax({
+                    type: "POST",
+                    url:'/admin/category/update',
+                    data:$('form').serialize(),
+                    error: function(request) {
+                        swal('警告','服务器错误','warning');
+                    },
+                    success: function(data) {
+                        if(data.status==200){
+                            swal({
+                                title: '更新成功',
+                                text: '更新成功',
+                                type: 'success'
+                            }).then(function(isConfirm) {
+                                location.reload();
+                            });
+                        }else {
+                            swal('警告','更新失败，请稍后重试','warning');
+                        }
+                        console.log(data);
+                    }
+                });
+            });
+            $('#category-add').modal('show');
+        }
+
+        /**
+         * 删除目录
+         * @param id
+         */
+        function del(id) {
+            swal({
+                title: 'Are you sure?',
+                text: '你将要删除该目录',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it',
+            }).then(function(isConfirm) {
+                if (isConfirm === true) {
+                    $.ajax({
+                        type: "POST",
+                        url:'/admin/category/del?id='+id,
+                        error: function(request) {
+                            swal('Oops...', '服务器错误', 'error');
+                        },
+                        success: function(data) {
+                            if(data.status==200){
+                                swal({
+                                    title: 'Success',
+                                    text: '删除成功',
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonText: '更新页面'
+                                }).then(function(isConfirm) {
+                                    if (isConfirm === true) {
+                                        location.reload();
+                                    }
+                                });
+                            }else {
+                                swal(
+                                        'Deleted!',
+                                        '删除失败！<br />'+data.msg,
+                                        'error'
+                                );
+                            }
+                            console.log(data);
+                        }
+                    });
+                } else if (isConfirm === false) {
+                    swal(
+                            'Cancelled',
+                            '该目录未被删除)',
+                            'error'
+                    );
+
+                } else {
+                    // Esc, close button or outside click
+                    // isConfirm is undefined
+                }
+            });
         }
     </script>
 
