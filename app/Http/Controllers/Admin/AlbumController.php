@@ -11,9 +11,29 @@ use App\Http\Controllers\Controller;
 
 /**
  * 图册
- * Class Albumcontroller
+ * Class AlbumController
  * @package App\Http\Controllers\Admin
  */
-class Albumcontroller extends Controller{
+class AlbumController extends Controller{
+
+    public function index(){
+
+    }
+
+    public function add(){
+
+    }
+
+    public function update(){
+
+    }
+
+    public function destroy(){
+        
+    }
+
+
+
+
 
 }
