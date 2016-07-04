@@ -95,7 +95,7 @@
                 homeImage{{$k+1}}Title ='{{$slider->albums->en_name}}';
                 homeImage{{$k+1}}FileWidth = '1000';
                 homeImage{{$k+1}}FileHeight = '667';
-                homeImage{{$k+1}}Link = 'case_study.html-id=117.htm';
+                homeImage{{$k+1}}Link = "./album/{{$slider->aid}}";
             @endforeach
 
 

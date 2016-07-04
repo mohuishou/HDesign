@@ -220,6 +220,7 @@ header {
 	-moz-transition: background-color .5s;
 	-webkit-transition: background-color .5s;
 	top: 0;
+    z-index: 1002;
 }
 
 #header-border-top {
@@ -288,12 +289,14 @@ nav {
 	display: none;
 	top: 0;
 	left: 0;
+	z-index:1000;
 }
 
 #nav-wrapper {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
+    z-index: 1001;
 }
 
 #nav-wrapper a {
@@ -327,6 +330,7 @@ nav {
 	top: 0;
 	left: 0;
 	overflow: hidden;
+    z-index: 1002;
 }
 
 a#contact-logo {

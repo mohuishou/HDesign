@@ -157,7 +157,7 @@ function openNav() {
         $('nav').css({display: 'table'})
             .addClass('animate-fade-in-1');
         $('header').css({backgroundColor: 'transparent'});
-        $('a#header-logo img').attr({src: 'images/index/logo_header_white.png'});
+        $('a#header-logo img').attr({src: '/images/index/logo_header_white.png'});
         $('a#header-menu, a#header-contact').css({color: '#FFF'});
         $('span#menu-icon').css({borderColor: '#FFF'});
         $('span#menu-icon span').css({backgroundColor: '#FFF'});
@@ -170,7 +170,7 @@ function closeNav() {
     $('nav').css({display: ''})
         .removeClass('animate-fade-in-1');
     $('header').css({backgroundColor: ''});
-    $('a#header-logo img').attr({src: 'images/index/logo_header.png'});
+    $('a#header-logo img').attr({src: '/images/index/logo_header.png'});
     $('a#header-menu, a#header-contact').css({color: ''});
     $('span#menu-icon').css({borderColor: ''});
     $('span#menu-icon span').css({backgroundColor: ''});

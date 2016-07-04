@@ -15,16 +15,17 @@
 // 注册路由...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-Route::get('/', [
-    'as' => 'index',
-    'uses' => 'Index\IndexController@index'
-]);
-//Route::group(['namespace'=>'Index\\'] ,function ($app) {
-//    $app->get('/', [
-//        'as' => 'index',
-//        'uses' => 'IndexController@index'
-//    ]);
-//});
+
+Route::group(['namespace'=>'Index\\'] ,function ($app) {
+    $app->get('/', [
+        'as' => 'index',
+        'uses' => 'IndexController@index'
+    ]);
+    $app->get('/album/{aid}', [
+        'as' => 'index.album',
+        'uses' => 'IndexController@album'
+    ]);
+});
 
 #后台路由
 Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,function ($app) {

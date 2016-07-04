@@ -50,7 +50,11 @@
                     @for($i=0;$i<5;$i++)
                         @if(isset($sliders->get($i)->id))
                             <div class="box img-list">
-                                <img class="img-thumbnail" src="{{asset(getPic($sliders->get($i)->albums->cover))}}"/>
+                                @if(getPic($sliders->get($i)->albums->cover))
+                                    <img class="img-thumbnail" src="/{{getPic($sliders->get($i)->albums->cover)}}"/>
+                                @else
+                                    <p>该图集没有封面图片</p>
+                                @endif
                                 <div class="over-layer">
                                     <h3 class="title">操作</h3>
                                     <p class="description">

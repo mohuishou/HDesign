@@ -29,6 +29,9 @@ class SliderController extends Controller{
     }
 
     public function update(Request $request){
+        $this->validate($request, [
+            'aid' => 'required|numeric',
+        ]);
         $slider=new Slider();
         if($request->has('id')){
             $slider=Slider::find($request->id);

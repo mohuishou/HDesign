@@ -7,8 +7,10 @@
  */
 namespace App\Http\Controllers\Index;
 
+use App\Album;
 use App\Http\Controllers\Controller;
 use App\Slider;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller{
 
@@ -29,11 +31,28 @@ class IndexController extends Controller{
     /**
      * @author mohuishou<1@lailin.xyz>
      */
-    public function category(){
-        
+    public function category(Request $request){
+        $this->validate($request, [
+            'cid' => 'required|numeric',
+        ]);
     }
 
-    public function album(){
+    public function album($aid){
+//        $this->validate($request, [
+//            'aid' => 'required|numeric',
+//        ]);
+
+        $album=Album::find($aid);
+
+        $pictures=$album->pictures;
+
+        $data=[
+            'title'=>$album->en_title."|".$album->cn_title,
+            'pictures'=>$pictures,
+            'album'=>$album
+        ];
+
+        return view('index.album',$data);
 
     }
 
