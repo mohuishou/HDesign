@@ -15,6 +15,16 @@
 // 注册路由...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::get('/', [
+    'as' => 'index',
+    'uses' => 'Index\IndexController@index'
+]);
+//Route::group(['namespace'=>'Index\\'] ,function ($app) {
+//    $app->get('/', [
+//        'as' => 'index',
+//        'uses' => 'IndexController@index'
+//    ]);
+//});
 
 #后台路由
 Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,function ($app) {
@@ -128,13 +138,18 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'SliderController@index'
         ]);
 
+        $app->post('slider',[
+            'as' => 'slider.update',
+            'uses' => 'SliderController@update'
+        ]);
+
     });
 
 
 
     #登录路由
     $app->get('/login', ['as'=>'login.get',function () {
-        return view('admin.login');
+        return view('admin.login',['title'=>'登陆后台']);
     }]);
 
     $app->post('/login',[

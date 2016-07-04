@@ -1,0 +1,79 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#home-bgs-container {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.home-bg-container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #FFF;
+	overflow: hidden;
+}
+
+#home-bg-container-animated {
+	left: 100%;
+}
+
+.home-bg-container img {
+	position: absolute;
+}
+
+.home-bg-container h3 {
+	position: absolute;
+	left: 50%;
+	width: 300px;
+	margin-left: -150px;
+	text-align: center;
+	bottom: 60px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+#home-cover {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #EEE;
+	top: 0;
+	left: 0;
+}
+
+#home-cover img {
+	position: absolute;
+	width: 300px;
+	height: 22px;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -11px;
+	display: none;
+}
+
+#home-bgs-timers {
+	position: fixed;
+	width: 100%;
+	height: 10px;
+	bottom: 0;
+	display: none;
+}
+
+.home-bg-timer {
+	height: 10px;
+	float: left;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.25);
+	margin-right: 1px;
+}
+
+.home-bg-timer-wrapper {
+	height: 10px;
+	width: 0;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.5);
+}

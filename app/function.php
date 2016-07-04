@@ -21,5 +21,7 @@ function sConfig($name){
 
 function getPic($id){
     $pic=App\Picture::find($id);
-    return $pic->path;
+    if(isset($pic->path)){
+        return $pic->path;
+    }
 }

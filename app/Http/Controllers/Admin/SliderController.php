@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Album;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Request;
 use App\Slider;
+use Illuminate\Http\Request;
 
 class SliderController extends Controller{
 
@@ -29,7 +29,25 @@ class SliderController extends Controller{
     }
 
     public function update(Request $request){
-        
+        $slider=new Slider();
+        if($request->has('id')){
+            $slider=Slider::find($request->id);
+        }
+        $slider->aid=$request->aid;
+        if($slider->save()){
+            return [
+                'status'=>200,
+                'msg'=>'更新成功'
+            ];
+        }else{
+            return [
+                'status'=>20008,
+                'msg'=>'更新失败'
+            ];
+        }
+
+
+
     }
 
 

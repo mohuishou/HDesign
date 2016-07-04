@@ -20,6 +20,6 @@ class Slider extends Model
 
     public function albums()
     {
-        return $this->hasOne('App\Albums','aid');
+        return $this->belongsTo('App\Album','aid');
     }
 }

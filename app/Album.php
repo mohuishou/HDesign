@@ -23,6 +23,6 @@ class Album extends Model
     }
 
     public function sliders(){
-        return $this->belongsTo('App\Slider','aid');
+        return $this->hasOne('App\Slider','aid');
     }
 }

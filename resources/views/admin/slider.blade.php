@@ -50,12 +50,12 @@
                     @for($i=0;$i<5;$i++)
                         @if(isset($sliders->get($i)->id))
                             <div class="box img-list">
-                                <img class="img-thumbnail" src="{{asset(getPic($slider->albums->cover))}}"/>
+                                <img class="img-thumbnail" src="{{asset(getPic($sliders->get($i)->albums->cover))}}"/>
                                 <div class="over-layer">
                                     <h3 class="title">操作</h3>
                                     <p class="description">
-                                        <a class="btn btn-flat btn-brand-accent"
-                                           onclick="del()">点击更换</a>
+                                        <a href="#"
+                                           onclick="update({{$sliders->get($i)->id}})">点击更换</a>
                                     </p>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                         </div>
 
                         <div>
-                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
+                            <button id="post" type="submit" class="btn btn-flat btn-brand btn-block waves-attach waves-light" >提交</button>
                         </div>
                     </form>
                 </div>
@@ -175,9 +175,46 @@
             });
         });
         
+        $('form').submit(function () {
+            add();
+            return false;
+        });
+        
+        
+        function update(id) {
+            $('form').append('<input type="hidden" value="'+id+'" name="id">');
+            $('#slider-update').modal('show');
+        }
+        
         
         function add() {
-            
+            $('#slider-update').modal('hide');
+            $.ajax({
+                type: "POST",
+                url:'/admin/slider',
+                data:$('form').serialize(),
+                error: function(request) {
+                    swal('警告','服务器错误','warning');
+                },
+                success: function(data) {
+                    if(data.status==200){
+                        swal({
+                            title: 'Success',
+                            text: '更新成功',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: '更新页面'
+                        }).then(function(isConfirm) {
+                            if (isConfirm === true) {
+                                location.reload();
+                            }
+                        });
+                    }else {
+                        swal('警告','获取图集，请稍后重试','warning');
+                    }
+                    console.log(data);
+                }
+            });
         }
     </script>
 

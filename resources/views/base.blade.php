@@ -4,9 +4,15 @@
     <head>
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+        <meta name="description" content="{{sConfig('web_description')}}" />
+        <meta name="keywords" content="{{sConfig('web_keywords')}}" />
+        <meta name="author" content="mohuishou" />
+        <meta property="og:title" content="{{isset($title)?$title:""}}|{{sConfig('web_name')}}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="{{sConfig('web_name')}}" />
+        <meta property="og:description" content="{{sConfig('web_description')}}" />
         <title>{{isset($title)?$title:""}}|{{sConfig('web_name')}}</title>
-        <link rel="stylesheet" href="{{ asset('css/base.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+
         @section('head')
         @show
 
@@ -16,7 +22,7 @@
         @show
 
         <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-        <script src="{{ asset('js/base.min.js') }}"></script>
+
         @section('script')
         @show
 

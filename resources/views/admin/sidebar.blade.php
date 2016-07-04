@@ -19,7 +19,9 @@
                             </li>
                         @endforeach
                     </ul>
-
+                </li>
+                <li>
+                    <a class="collapsed waves-attach waves-effect"  href="/admin/slider">首页轮播</a>
                 </li>
                 <li>
                     <a class="collapsed waves-attach waves-effect" data-toggle="collapse" href="#ui_menu_samples">Sample Pages</a>
@@ -27,7 +29,7 @@
                         <li>
                             <a class="waves-attach waves-effect" href="page-login.html">Login Page</a>
                         </li>
-                        <li>
+                        <li>9
                             <a class="waves-attach waves-effect" href="page-picker.html">Picker Page</a>
                         </li>
                     </ul>

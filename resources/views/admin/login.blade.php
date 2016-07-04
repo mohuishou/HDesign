@@ -1,5 +1,6 @@
-@extends('base')
+@extends('admin.base')
 @section('head')
+    @parent
     <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}">
 @endsection
 @section('main')
@@ -66,6 +67,7 @@
 @endsection
 
 @section('script')
+    @parent
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script>
         $(document).ready(function () {

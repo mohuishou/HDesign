@@ -1,5 +1,8 @@
 @extends('base')
 @section('head')
+    @parent
+    <link rel="stylesheet" href="{{ asset('css/base.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <style>
         .header{
             background: #3f51b5;
@@ -23,5 +26,11 @@
 
     @include('admin.footer')
 </div>
+@endsection
+
+@section('script')
+
+    @parent
+    <script src="{{ asset('js/base.min.js') }}"></script>
 @endsection
 

@@ -89,7 +89,7 @@
                             <textarea class="form-control textarea-autosize"  name="description" id="description" required maxlength="255" rows="2"></textarea>
                         </div>
                         <div>
-                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onsubmit="add()">提交</button>
+                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
                         </div>
                     </form>
                 </div>

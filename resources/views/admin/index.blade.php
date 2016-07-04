@@ -1,5 +1,6 @@
 @extends('admin.base')
 @section('head')
+    @parent
     <style>
         body{
             height: 200%;

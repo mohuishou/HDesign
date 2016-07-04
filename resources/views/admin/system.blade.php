@@ -64,6 +64,7 @@
 @endsection
 
 @section('script')
+    @parent
     <script src="{{asset('js/jquery.ui.widget.js')}}"></script>
     <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
     <script src="{{asset('js/jquery.iframe-transport.js')}}"></script>
