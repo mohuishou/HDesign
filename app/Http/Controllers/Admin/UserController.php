@@ -28,7 +28,7 @@ class UserController extends Controller{
         if($request->has('backUrl')){
             $back_url=$request->backUrl;
         }else{
-            $back_url=route('admin.test');
+            $back_url=route('admin.system.show');
         }
 
         if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {

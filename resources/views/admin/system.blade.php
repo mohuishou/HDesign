@@ -32,11 +32,11 @@
                                 <label class="floating-label" for="web-name">站点名称</label>
                                 <input class="form-control" name="web_name" id="web-name" value="{{sConfig('web_name')}}" type="text">
                             </div>
-                            <div class="form-group form-group-label">
-                                <label class="btn btn-brand btn-flat" for="web-logo">选择站点LOGO</label>
-                                <input class="form-control" name="picture" id="web-logo" style="display: none;" type="file">
-                                <img id="web-logo-img" src="{{sConfig('web_logo')}}">
-                            </div>
+                            {{--<div class="form-group form-group-label">--}}
+                                {{--<label class="btn btn-brand btn-flat" for="web-logo">选择站点LOGO</label>--}}
+                                {{--<input class="form-control" name="picture" id="web-logo" style="display: none;" type="file">--}}
+                                {{--<img id="web-logo-img" src="{{sConfig('web_logo')}}">--}}
+                            {{--</div>--}}
                             <div id="progress">
                                 <div class="bar" style="width: 0%;"></div>
                             </div>
@@ -65,10 +65,10 @@
 
 @section('script')
     @parent
-    <script src="{{asset('js/jquery.ui.widget.js')}}"></script>
-    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-    <script src="{{asset('js/jquery.iframe-transport.js')}}"></script>
-    <script src="{{asset('js/jquery.fileupload.js')}}"></script>
+    {{--<script src="{{asset('js/jquery.ui.widget.js')}}"></script>--}}
+    {{--<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->--}}
+    {{--<script src="{{asset('js/jquery.iframe-transport.js')}}"></script>--}}
+    {{--<script src="{{asset('js/jquery.fileupload.js')}}"></script>--}}
 <script>
     $('input[type=text]').change(function () {
         var data={
