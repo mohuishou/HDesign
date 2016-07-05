@@ -15,12 +15,26 @@
             <img src="" alt="" />
             <h3></h3>
         </div>
-
+        <div class="home-bg-container" id="home-bg-container-animated">
+            <img src="" alt="" />
+            <h3></h3>
+        </div>
         <div id="home-bgs-timers">
             <div class="home-bg-timer" id="home-bg-timer-1">
                 <div class="home-bg-timer-wrapper"></div>
             </div>
-
+            <div class="home-bg-timer" id="home-bg-timer-2">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-3">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-4">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-5">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
         </div>
     </div>
 

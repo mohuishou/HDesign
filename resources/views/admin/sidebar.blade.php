@@ -23,7 +23,7 @@
                 <li>
                     <a class="collapsed waves-attach waves-effect"  href="/admin/slider">首页轮播</a>
                 </li>
-                
+
             </ul>
         </div>
     </div>

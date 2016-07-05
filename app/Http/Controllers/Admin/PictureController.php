@@ -36,6 +36,12 @@ class PictureController extends Controller{
         $album_pic->album_id=$request->aid;
         $album_pic->picture_id=$pic['pid'];
         if($album_pic->save()){
+            $album=Album::find($request->aid);
+            if($album->cover==0){
+                $album->cover=$album_pic->picture_id;
+                $album->save();
+            }
+
             return [
                 'status'=>200,
                 'path'=>$pic['path'],
@@ -53,8 +59,28 @@ class PictureController extends Controller{
 
 
     public function destroy(Request $request){
-        $pictures=Album::find($request->aid)->pictures()->find($request->pid)->delete();
-        if($pictures){
+        $this->validate($request, [
+            'aid' => 'required',
+            'pid' => 'required'
+        ]);
+
+        $album=Album::find($request->aid);
+        $pictures=Album::find($request->aid)->pictures;
+        if($album->cover==$request->pid){
+            if(count($pictures)!=1){
+                return [
+                    'status'=>20008,
+                    'msg'=>'该图片为封面图片，封面图片只允许最后删除，请先设置其他图片为封面'
+                ];
+            }else{
+                $album->cover=0;
+                $album->save();
+            }
+        }
+
+
+        $picture=$pictures->find($request->pid)->delete();
+        if($picture){
             return [
                 'status'=>200,
                 'msg'=>'删除成功'
@@ -62,7 +88,7 @@ class PictureController extends Controller{
         }else{
             return [
                 'status'=>20007,
-                'msg'=>'删除失败'
+                'msg'=>'删除失败，数据库错误'
             ];
         }
     }
