@@ -31,10 +31,9 @@ class IndexController extends Controller{
     /**
      * @author mohuishou<1@lailin.xyz>
      */
-    public function category(Request $request){
-        $this->validate($request, [
-            'cid' => 'required|numeric',
-        ]);
+    public function category($cid){
+
+
     }
 
     public function album($aid){
