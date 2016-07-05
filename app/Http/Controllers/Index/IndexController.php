@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Index;
 use App\Album;
 use App\Http\Controllers\Controller;
 use App\Slider;
+use App\Category;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller{
@@ -33,9 +34,35 @@ class IndexController extends Controller{
      */
     public function category($cid){
 
+        $cate=Category::find($cid);
+
+        if($cate->pid!=0){
+            $album=$cate->albums;
+            $title=$cate->cn_title;
+            $pid=$cate->pid;
+            $cate=Category::find($pid);
+            $cate_two=Category::where('pid',$pid)->get();
+        }else{
+            $cate_two=Category::where('pid',$cid)->get();
+            $album=$cate_two->get(0)->albums;
+            $title=$cate->cn_title.'|'.$cate_two->get(0)->cn_title;
+        }
+
+        $data=[
+            'title'=>$title,
+            'category'=>$cate,
+            'category_two'=>$cate_two,
+            'albums'=>$album
+        ];
+        return view('index.category',$data);
 
     }
 
+    /**
+     * [album description]
+     * @param  [type] $aid [description]
+     * @return [type]      [description]
+     */
     public function album($aid){
 //        $this->validate($request, [
 //            'aid' => 'required|numeric',

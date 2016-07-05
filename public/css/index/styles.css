@@ -93,11 +93,21 @@ form {
     -webkit-animation: fadein 1s;
 }
 
+.animate-delay-2{
+    animation-delay:2s;
+    -moz-animation-delay:2s;
+    -webkit-animation-delay:2s;
+}
+
 .animate-fade-in-2 {
 	animation: fadein 2s;
     -moz-animation: fadein 2s;
     -webkit-animation: fadein 2s;
+    animation-delay:1s;
+    -moz-animation-delay:1s;
+    -webkit-animation-delay:1s;
 }
+
 
 .animate-fade-out-1 {
 	animation: fadeout 1s;
@@ -239,8 +249,8 @@ a#header-logo {
 }
 
 a#header-logo img {
-	height: 10px;
-	width: 140px;
+	max-height:30px;
+	max-width:200px;
 }
 
 a#header-menu:link, a#header-menu:visited, a#header-contact:link, a#header-contact:visited {
@@ -341,8 +351,8 @@ a#contact-logo {
 }
 
 a#contact-logo img {
-	height: 10px;
-	width: 140px;
+	max-height: 30px;
+	max-width: 200px;
 }
 
 a#contact-close {

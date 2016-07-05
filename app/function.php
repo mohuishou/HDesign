@@ -25,3 +25,8 @@ function getPic($id){
         return $pic->path;
     }
 }
+
+function getCate($pid){
+    $cate=App\Category::where('pid',$pid)->get();
+    return $cate;
+}

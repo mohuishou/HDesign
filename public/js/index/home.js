@@ -20,10 +20,11 @@ $(document).ready(function () {
     });
     calcReplacementHome();
     toggleResponsiveItemsHome();
-    $('#home-cover img').imagesLoaded(function () {
-        $(this).unbind('load')
-            .show()
-            .addClass('animate-fade-in-2');
+    $('#home-cover .cover-1').imagesLoaded(function () {
+        $(this).unbind('load').show().addClass('animate-fade-in-1');
+    });
+    $('#home-cover .cover-2').imagesLoaded(function () {
+        $(this).unbind('load').show().addClass('animate-fade-in-2');
         startHomeBg();
     });
 // Mobile set-up

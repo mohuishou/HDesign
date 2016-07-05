@@ -16,6 +16,8 @@
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+
+#首页路由
 Route::group(['namespace'=>'Index\\'] ,function ($app) {
     $app->get('/', [
         'as' => 'index',
@@ -24,6 +26,10 @@ Route::group(['namespace'=>'Index\\'] ,function ($app) {
     $app->get('/album/{aid}', [
         'as' => 'index.album',
         'uses' => 'IndexController@album'
+    ]);
+    $app->get('/category/{cid}', [
+        'as' => 'index.category',
+        'uses' => 'IndexController@category'
     ]);
 });
 
@@ -158,4 +164,3 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
         'uses' => 'UserController@login'
     ]);
 });
-

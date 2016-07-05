@@ -41,15 +41,15 @@
             <div class="contact-column-text">
                 <h4>CONNECT</h4>
                 <p>
-                    <a href="javascript:if(confirm('https://www.facebook.com/YabuPushelberg  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='https://www.facebook.com/YabuPushelberg'" tppabs="https://www.facebook.com/YabuPushelberg" target="_blank">Facebook</a>
+                    <a >Facebook</a>
                     <br />
-                    <a href="javascript:if(confirm('http://instagram.com/yabupushelberg  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://instagram.com/yabupushelberg'" tppabs="http://instagram.com/yabupushelberg" target="_blank">Instagram</a>
+                    <a >Instagram</a>
                     <br />
                     <a href="javascript:loadCareers();">Careers</a>
                 </p>
             </div>
         </div>
-        <a href="javascript:if(confirm('http://studio-monolith.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://studio-monolith.com/'"  target="_blank" id="monolith-credit">SITE BY MONOLITH</a>
+        <a >SITE BY MONOLITH</a>
     </div>
     <a href="javascript:closeContact();" id="contact-logo">
         <img src="{{asset('images/index/logo_header_white.png')}}"  />
@@ -73,7 +73,7 @@
                         <br />
                         T鈥�212.226.0808
                         <br />
-                        E鈥�
+
                         <a href="mailto:infonyc@yabupushelberg.com">infonyc@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -81,7 +81,7 @@
                         <br />
                         Lindsey Rand - Ext. 420
                         <br />
-                        E鈥�
+
                         <a href="mailto:lindsey@yabupushelberg.com">lindsey@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -89,7 +89,7 @@
                         <br />
                         Kaitlyn Thornton - Ext. 407
                         <br />
-                        E鈥�
+
                         <a href="mailto:Kaitlyn@yabupushelberg.com">Kaitlyn@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -97,7 +97,7 @@
                         <br />
                         Peter Sriployrung - Ext. 496
                         <br />
-                        E鈥�
+
                         <a href="mailto:peters@yabupushelberg.com">peters@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -105,7 +105,7 @@
                         <br />
                         Dorothy Kochanski - Ext. 248
                         <br />
-                        E鈥�
+
                         <a href="mailto:HR@yabupushelberg.com">HR@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -113,7 +113,7 @@
                         <br />
                         Sade Hooks - Ext. 445
                         <br />
-                        E鈥�
+
                         <a href="mailto:sade@yabupushelberg.com">sade@yabupushelberg.com</a>
                     </p>
 
@@ -125,7 +125,7 @@
                         <br />
                         T鈥�416.778.9779
                         <br />
-                        E鈥�
+
                         <a href="mailto:infoto@yabupushelberg.com">infoto@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -133,7 +133,7 @@
                         <br />
                         Kendra Faykes - Ext. 221
                         <br />
-                        E鈥�
+
                         <a href="mailto:tajah@yabupushelberg.com">tajah@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -141,7 +141,7 @@
                         <br />
                         Kaitlyn Thornton - Ext. 407
                         <br />
-                        E鈥�
+
                         <a href="mailto:Kaitlyn@yabupushelberg.com">Kaitlyn@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -149,7 +149,7 @@
                         <br />
                         Mariko Sormon - Ext. 264
                         <br />
-                        E鈥�
+
                         <a href="mailto:mariko@yabupushelberg.com">mariko@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -157,7 +157,7 @@
                         <br />
                         Dorothy Kochanski - Ext. 248
                         <br />
-                        E鈥�
+
                         <a href="mailto:HR@yabupushelberg.com">HR@yabupushelberg.com</a>
                         <br />
                         <br />
@@ -165,7 +165,7 @@
                         <br />
                         Sonia Germain - Ext. 320
                         <br />
-                        E鈥�
+
                         <a href="mailto:sonia@yabupushelberg.com">sonia@yabupushelberg.com</a>
                     </p>
 

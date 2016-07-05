@@ -11,18 +11,19 @@
 @section('main')
     <nav>
         <div id="nav-wrapper">
-            <a href="showcase.html" >
-                <p>SHOWCASE</p>
-                <p>案例展示</p>
+            @foreach(getCate(0) as $cate)
 
-            </a>
+                <a href="/category/{{$cate->id}}" >
+                    <p>{{$cate->en_title}}</p>
+                    <p>{{$cate->cn_title}}</p>
+                </a>
+            @endforeach
             <span></span>
             <a href="about.html" >
                 <p>ABOUT</p>
                 <p>关于</p>
             </a>
-            <span></span>
-            <a href="culture.html">CULTURE</a>
+
         </div>
     </nav>
     <header>
@@ -42,11 +43,11 @@
     </header>
     <div id="header-border-top"></div>
 
-    <div class="index-main">
+    {{--<div class="index-main">--}}
         @section('index-main')
 
         @show
-    </div>
+    {{--</div>--}}
 
     @include('index.contact')
 
@@ -54,12 +55,10 @@
 
 
 
-    @section('script')
+@section('script')
 
     @parent
-            <!--[if lt IE 9]>
-        <!--<script src="../html5shiv.googlecode.com/svn/trunk/html5.js" ></script>-->
-    <![endif]-->
+
     <script src="{{asset('js/index/jquery.address-1.5.min.js')}}"></script>
     <script src="{{asset('js/index/modernizr.custom.33755.js')}}"></script>
     <script src="{{asset('js/index/gistfile1.js')}}"></script>
