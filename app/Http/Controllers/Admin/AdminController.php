@@ -11,10 +11,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller{
     function index(Request $request){
-//        config(['mohuishou.web_name' => 'test']);
-        echo config('mohuishou.web_name', '啥也没');
-        echo 123;
-//        return $request->user();
-        return view('admin.index');
+        return redirect()->Route('admin.system.show');
     }
 }
