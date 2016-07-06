@@ -20,6 +20,7 @@ class IndexController extends Controller{
      * @return mixed
      */
     public function index(){
+       
         $sliders=Slider::all();
         $data=[
             'title'=>'首页',

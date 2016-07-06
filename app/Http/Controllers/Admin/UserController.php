@@ -81,6 +81,12 @@ class UserController extends Controller{
 
 
     public function update(Request $request){
+        $this->validate($request, [
+            'username' => 'required|max:20',
+            'password' => 'required',
+            'uid'=>'required'
+        ]);
+
         
     }
 
