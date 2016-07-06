@@ -18,7 +18,7 @@
                     <p>{{$cate->cn_title}}</p>
                 </a>
             @endforeach
-            <span></span>
+            {{--<span></span>--}}
             <a href="about.html" >
                 <p>ABOUT</p>
                 <p>关于</p>

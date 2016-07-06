@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 
 class PictureController extends Controller{
 
+    /**
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return mixed
+     */
     public function index(Request $request){
         $album=Album::find($request->aid);
         $pictures=$album->pictures;
@@ -26,6 +31,11 @@ class PictureController extends Controller{
         return view('album.picture',$data);
     }
 
+    /**
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return array
+     */
     public function add(Request $request){
         $pic=UploadController::pictures($request);
 
@@ -58,6 +68,11 @@ class PictureController extends Controller{
     }
 
 
+    /**
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     * @return array
+     */
     public function destroy(Request $request){
         $this->validate($request, [
             'aid' => 'required',

@@ -41,10 +41,7 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'as' => 'test',
             'uses' => 'AdminController@index'
         ]);
-        $app->get('test', [
-            'as' => 'test',
-            'uses' => 'AdminController@index'
-        ]);
+
 
         #退出登录
         $app->get('logout',[
@@ -156,6 +153,7 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
 
     #登录路由
     $app->get('/login', ['as'=>'login.get',function () {
+
         return view('admin.login',['title'=>'登陆后台']);
     }]);
 
