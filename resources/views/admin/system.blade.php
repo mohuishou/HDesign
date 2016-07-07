@@ -83,23 +83,23 @@
         update($(this).attr('name'),data);
     });
 
-    $(function () {
-        $('#web-logo').fileupload({
-            url:'/admin/system/logo',
-            dataType: 'json',
-            done: function (e, data) {
-                $('#web-logo-img').attr('src',data.result.path);
-                $('#progress .bar').css('display','none');
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .bar').css(
-                        'width',
-                        progress + '%'
-                );
-            }
-        });
-    });
+    // $(function () {
+    //     $('#web-logo').fileupload({
+    //         url:'/admin/system/logo',
+    //         dataType: 'json',
+    //         done: function (e, data) {
+    //             $('#web-logo-img').attr('src',data.result.path);
+    //             $('#progress .bar').css('display','none');
+    //         },
+    //         progressall: function (e, data) {
+    //             var progress = parseInt(data.loaded / data.total * 100, 10);
+    //             $('#progress .bar').css(
+    //                     'width',
+    //                     progress + '%'
+    //             );
+    //         }
+    //     });
+    // });
 
 
     function update(action,d) {
