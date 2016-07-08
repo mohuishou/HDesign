@@ -12,11 +12,12 @@
     <nav>
         <div id="nav-wrapper">
             @foreach(getCate(0) as $cate)
-
-                <a href="/category/{{$cate->id}}" >
-                    <p>{{$cate->en_title}}</p>
-                    <p>{{$cate->cn_title}}</p>
-                </a>
+                @if(!empty(\App\Category::where('pid',$cate->id)->first()->id))
+                    <a href="/category/{{$cate->id}}" >
+                        <p>{{$cate->en_title}}</p>
+                        <p>{{$cate->cn_title}}</p>
+                    </a>
+                @endif
             @endforeach
             {{--<span></span>--}}
             <a href="about.html" >

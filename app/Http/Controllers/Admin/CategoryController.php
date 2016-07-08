@@ -105,7 +105,9 @@ class CategoryController extends Controller
                 'msg'=>'删除错误，在该目录下存在子目录！'
             ];
 
-        $album=Album::where('cid','id')->first();
+        $album=Album::where('cid',$id)->first();
+
+       
 
         if(!empty($album->id))
             return [
