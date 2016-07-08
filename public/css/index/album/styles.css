@@ -194,6 +194,8 @@ table img.arrow {
 }
 #footer .social a img {
 	display: block;
+	max-height:25px;
+	max-width:25px;
 }
 /* Content */
 #content {

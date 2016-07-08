@@ -21,7 +21,7 @@
         @section('main')
         @show
 
-        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="{{asset('js/jquery.min.js')}}"></script>
 
         @section('script')
         @show

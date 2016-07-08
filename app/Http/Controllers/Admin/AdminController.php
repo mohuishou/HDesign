@@ -11,6 +11,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller{
     function index(Request $request){
-        return redirect()->Route('admin.system.show');
+        return redirect()->Route('admin.syswqtem.show');
     }
 }

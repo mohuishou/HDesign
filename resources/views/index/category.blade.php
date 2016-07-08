@@ -54,7 +54,7 @@
 
     </div>
 
-
+   @include('index.footer')
 
 @endsection
 
@@ -95,7 +95,9 @@
             });
             $('#slider li, #slider, #slider_box').width(col * 326);
             $('#slider li, #slider, #slider_box').height(row * 250);
-            $("#slider").easySlider();
+            $("#slider").easySlider({
+                "controlsShow":false
+            });
         });
         $(window).load(function () {
             grayscale($("#slider img.dark"));
