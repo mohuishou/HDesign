@@ -15,6 +15,7 @@
         .img-list {
             display: inline-block;
             width: 330px;
+            max-width: 100%;
             margin-top: 10px;
             margin-right: 20px;
             background: #EEEEEE;
