@@ -14,7 +14,7 @@
             <div id="project_image">
                 <div id="btn-back">
 			<span class="inner">
-				<a href="/">Back to Projects</a>
+				<a href="/category/{{$album->cid}}">Back to Projects</a>
 			</span>
                 </div>
                 <div class="image_load"><img src="{{asset('images/loader.gif')}}"></div>
