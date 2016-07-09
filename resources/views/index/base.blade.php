@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    @include('addons.contact')
+    @include('addons.kefu')
     <nav>
         <div id="nav-wrapper">
             @foreach(getCate(0) as $cate)
