@@ -30,3 +30,4 @@ function getCate($pid){
     $cate=App\Category::where('pid',$pid)->get();
     return $cate;
 }
+

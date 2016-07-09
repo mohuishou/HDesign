@@ -49,6 +49,30 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'UserController@logout'
         ]);
 
+
+        #user
+        $app->get('user',[
+            'as' => 'user.show',
+            'uses' => 'UserController@index'
+        ]);
+        $app->post('user/add',[
+            'as' => 'user.add',
+            'uses' => 'UserController@add'
+        ]);
+        $app->post('user/update',[
+            'as' => 'user.update',
+            'uses' => 'UserController@update'
+        ]);
+        $app->post('user/del',[
+            'as' => 'user.delete',
+            'uses' => 'UserController@destroy'
+        ]);
+        $app->post('user/avatar',[
+            'as' => 'user.avatar',
+            'uses' => 'UserController@avatar'
+        ]);
+
+
         #系统设置路由
         $app->get('system',[
             'as' => 'system.show',

@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 
 class SystemController extends Controller{
 
-    public function index(){
-        $data=['title'=>'系统设置'];
+    public function index(Request $request){
+        $data=[
+            'title'=>'系统设置',
+            'avatar'=>$request->user()->avatar
+        ];
         return view('admin.system',$data);
     }
 

@@ -24,7 +24,8 @@ class CategoryController extends Controller
         $data=[
             'pid'=>$request->pid,
             'title'=>$request->title.'下的栏目',
-            'categories'=>$categories
+            'categories'=>$categories,
+            'avatar'=>$request->user()->avatar
         ];
         return view('admin.category',$data);
     }
@@ -107,7 +108,7 @@ class CategoryController extends Controller
 
         $album=Album::where('cid',$id)->first();
 
-       
+
 
         if(!empty($album->id))
             return [

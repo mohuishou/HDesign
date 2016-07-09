@@ -7,6 +7,7 @@
  */
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,36 +59,97 @@ class UserController extends Controller{
     }
 
 
+    public function index(Request $request){
+        $users=User::all();
+        $data=[
+            'title'=>'用户管理',
+            'users'=>$users,
+            'avatar'=>$request->user()->avatar
+
+        ];
+        return view('admin.user',$data);
+    }
+
+    public function avatar(Request $request){
+        return UploadController::picture($request);
+    }
+
     /**
      * 注册
      * @author mohuishou<1@lailin.xyz>
      * @param Request $request
      * @return mixed
      */
-    public function register(Request $request){
+    public function add(Request $request){
         $this->validate($request, [
-            'username' => 'required|max:20',
-            'email'=>'required|email',
-            'password' => 'required',
+            'username' => 'required|max:20|unique:users,name',
+            'email'=>'required|email|unique:users,email',
+            'password' => 'required|max:20',
+            'avatar' => 'required|max:20',
         ]);
 
 
-        return User::create([
+        User::create([
             'name' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'avatar' =>$request->avatar
         ]);
+
+        return [
+            'status'=>200,
+            'msg'=>'添加成功'
+        ];
     }
 
-
-    public function update(Request $request){
+    public function destroy(Request $request){
         $this->validate($request, [
-            'username' => 'required|max:20',
-            'password' => 'required',
-            'uid'=>'required'
+            'id'=>'required'
         ]);
 
-        
+        if($request->id==$request->user()->id)
+            return [
+                'status'=>20056,
+                'msg'=>'删除错误，不允许删除当前用户'
+            ];
+
+        $users=User::all();
+        if(count($users)==1)
+            return [
+                'status'=>20036,
+                'msg'=>'删除错误，当前只剩下最后一位用户'
+            ];
+
+
+
+        User::destroy($request->id);
+
+
+        return [
+            'status'=>200,
+            'mag'=>'删除成功！'
+        ];
+    }
+
+    /**
+     * @author mohuishou<1@lailin.xyz>
+     * @param Request $request
+     */
+    public function update(Request $request){
+        $this->validate($request, [
+            'id'=>'required'
+        ]);
+
+        $user=User::find($request->id);
+        $user->name=$request->username;
+        $user->email=$request->email;
+        $user->avatar=$request->avatar;
+        $user->save();
+
+        return [
+            'status'=>200,
+            'msg'=>'更新成功'
+        ];
     }
 
 

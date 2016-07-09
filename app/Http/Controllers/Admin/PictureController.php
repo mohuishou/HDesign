@@ -26,7 +26,8 @@ class PictureController extends Controller{
             'aid'=>$request->aid,
             'cover'=>$album->cover,
             'title'=>$request->title.'下的图片',
-            'pictures'=>$pictures
+            'pictures'=>$pictures,
+            'avatar'=>$request->user()->avatar
         ];
         return view('album.picture',$data);
     }

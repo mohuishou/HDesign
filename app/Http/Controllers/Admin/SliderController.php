@@ -17,13 +17,14 @@ class SliderController extends Controller{
     /**
      * @author mohuishou<1@lailin.xyz>
      */
-    public function index(){
+    public function index(Request $request){
         $sliders=Slider::all();
         $albums=Album::all();
         $data=[
             'title'=>'首页轮播',
             'sliders'=>$sliders,
-            'albums'=>$albums
+            'albums'=>$albums,
+            'avatar'=>$request->user()->avatar
         ];
         return view('admin.slider',$data);
     }

@@ -17,16 +17,17 @@
             <div class="card-main">
                 <div class="card-inner">
                     <h2>{{$title}}</h2>
-                    <table class="table">
-                        <thead>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>中文标题</th>
                                 <th>英文标题</th>
                                 <th>操作</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             @foreach($categories as $cate)
                                 <tr>
                                     <td>{{$cate->id}}</td>
@@ -44,8 +45,10 @@
                                 </tr>
 
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="card-action">
 

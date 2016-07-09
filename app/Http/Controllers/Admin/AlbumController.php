@@ -23,7 +23,8 @@ class AlbumController extends Controller{
         $data=[
             'cid'=>$request->cid,
             'title'=>$request->title.'下的图集',
-            'albums'=>$albums
+            'albums'=>$albums,
+            'avatar'=>$request->user()->avatar
         ];
         return view('album.lists',$data);
     }

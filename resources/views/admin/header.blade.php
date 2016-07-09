@@ -12,7 +12,7 @@
         <li class="dropdown margin-right">
             <a class="dropdown-toggle padding-left-no padding-right-no" data-toggle="dropdown">
                 <span class="access-hide">John Smith</span>
-                <span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="{{ asset('images/users/avatar-001.jpg') }}"></span>
+                <span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="{{asset(getPic($avatar))}}"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
 

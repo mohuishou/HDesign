@@ -17,33 +17,36 @@
             <div class="card-main">
                 <div class="card-inner">
                     <h2>{{$title}}</h2>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>中文标题</th>
-                            <th>英文标题</th>
-                            <th>描述</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($albums as $album)
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{$album->id}}</td>
-                                <td>{{$album->cn_title}}</td>
-                                <td>{{$album->en_title}}</td>
-                                <td>{{$album->description}}</td>
-                                <td>
-                                    <a class="btn btn-brand waves-attach waves-effect" href="/admin/picture?aid={{$album->id}}&title={{$album->cn_title}}">查看图片</a>
-                                    <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
-                                    <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
-                                </td>
+                                <th>ID</th>
+                                <th>中文标题</th>
+                                <th>英文标题</th>
+                                <th>描述</th>
+                                <th>操作</th>
                             </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($albums as $album)
+                                <tr>
+                                    <td>{{$album->id}}</td>
+                                    <td>{{$album->cn_title}}</td>
+                                    <td>{{$album->en_title}}</td>
+                                    <td>{{$album->description}}</td>
+                                    <td>
+                                        <a class="btn btn-brand waves-attach waves-effect" href="/admin/picture?aid={{$album->id}}&title={{$album->cn_title}}">查看图片</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
+                                    </td>
+                                </tr>
 
-                        @endforeach
-                        </tbody>
-                    </table>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="card-action">
 
