@@ -9,6 +9,7 @@
 @endsection
 
 @section('main')
+    @include('addons.contact')
     <nav>
         <div id="nav-wrapper">
             @foreach(getCate(0) as $cate)

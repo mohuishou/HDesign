@@ -63,7 +63,7 @@
             </div>
         </div>
     </main>
-
+@include('admin.footer')
 @endsection
 
 @section('script')

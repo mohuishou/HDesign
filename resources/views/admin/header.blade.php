@@ -6,7 +6,7 @@
             </a>
         </li>
     </ul>
-    <a class="header-logo header-affix-hide margin-left-no margin-right-no affix" data-offset-top="213" data-spy="affix" href="index.html">{{sConfig('web_name')}}</a>
+    <a class="header-logo header-affix-hide margin-left-no margin-right-no affix" data-offset-top="213" data-spy="affix" href="/">{{sConfig('web_name')}}</a>
     <span class="header-logo header-affix margin-left-no margin-right-no affix" data-offset-top="213" data-spy="affix">{{isset($title)?$title:""}}|{{sConfig('web_name')}}</span>
     <ul class="nav nav-list pull-right">
         <li class="dropdown margin-right">
