@@ -159,6 +159,10 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'as' => 'picture.delete',
             'uses' => 'PictureController@destroy'
         ]);
+        $app->post('picture/sort',[
+            'as' => 'picture.sort',
+            'uses' => 'PictureController@sortPic'
+        ]);
 
         #轮播路由
         $app->get('slider',[

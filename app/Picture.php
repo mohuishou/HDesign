@@ -15,6 +15,6 @@ class Picture extends Model
 
     public function albums()
     {
-        return $this->belongsToMany('App\Albums');
+        return $this->belongsToMany('App\Albums')->withPivot('id','sort');
     }
 }

@@ -21,13 +21,14 @@ class PictureController extends Controller{
      */
     public function index(Request $request){
         $album=Album::find($request->aid);
-        $pictures=$album->pictures;
+        $pictures=$album->pictures()->orderBy('sort','decs')->get();
         $data=[
             'aid'=>$request->aid,
             'cover'=>$album->cover,
             'title'=>$request->title.'下的图片',
             'pictures'=>$pictures,
-            'avatar'=>$request->user()->avatar
+            'avatar'=>$request->user()->avatar,
+
         ];
         return view('album.picture',$data);
     }
@@ -66,6 +67,23 @@ class PictureController extends Controller{
         }
 
 
+    }
+
+    public function sortPic(Request $request){
+        $album_picture=AlbumPicture::find($request->id);
+        $album_picture->sort=$request->sort;
+        $re=$album_picture->save();
+        if($re){
+            return [
+                'status'=>200,
+                'msg'=>'设置成功'
+            ];
+        }else{
+            return [
+                'status'=>200056,
+                'msg'=>'设置失败，数据库错误'
+            ];
+        }
     }
 
 

@@ -16,7 +16,7 @@ class AlbumPicture extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['created_time'];
 
     protected $table='album_picture';
 

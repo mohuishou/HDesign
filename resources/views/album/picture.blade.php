@@ -75,12 +75,33 @@
                                        onclick="del('{{$aid}}','{{$picture->id}}')">点击删除</a>
                                     <a class="btn btn-flat btn-brand-accent"
                                        onclick="setCover('{{$aid}}','{{$picture->id}}')">设为封面</a>
+                                    <a class="btn btn-flat btn-brand-accent"
+                                       onclick="sortPic('{{$picture->pivot->id}}','{{$picture->pivot->sort}}')">排序</a>
                                 </p>
                             </div>
                         </div>
                     @endforeach
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-hidden="true" class="modal modal-va-middle fade" id="sort-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-heading">设置图片顺序</div>
+                <div class="modal-inner">
+                    <form id="form-sort">
+                        <div class="form-group form-group-label">
+                            <label class="floating-label" for="sort">数字越大越靠前</label>
+                            <input class="form-control" id="sort" name="sort" type="number">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-flat btn-brand" onclick="sortPicGo()">提交</button>
                 </div>
             </div>
         </div>
@@ -98,6 +119,9 @@
     <script>
 
 
+        /**
+         * 图片批量上传
+         **/
         $(function () {
             $('#pictures').fileupload({
                 url: '/admin/picture/add?aid={{$aid}}',
@@ -129,6 +153,48 @@
 
         });
 
+
+        function sortPic(id,sort) {
+            $('#form-sort').append("<input name='id' type='hidden' value='"+id+"'/>");
+            $('#sort').val(sort);
+            $('#sort-modal').modal('show');
+        }
+
+        function sortPicGo() {
+            $('#sort-modal').modal('hide');
+            $.ajax({
+                type: "POST",
+                url:'/admin/picture/sort',
+                data:$('#form-sort').serialize(),
+                error: function(request) {
+                    swal('Oops...', '服务器错误', 'error');
+                },
+                success: function(data) {
+                    if(data.status==200){
+                        swal({
+                            title: 'Success',
+                            text: '设置成功',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: '更新页面'
+                        }).then(function(isConfirm) {
+                            if (isConfirm === true) {
+                                location.reload();
+                            }
+                        });
+                    }else {
+                        swal('Deleted!', '设置失败！<br />'+data.msg, 'error');
+                    }
+                    console.log(data);
+                }
+            });
+        }
+
+        /**
+         * 设置封面
+         * @param aid
+         * @param pid
+         */
         function setCover(aid,pid){
             $.ajax({
                 type: "POST",

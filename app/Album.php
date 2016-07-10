@@ -19,7 +19,7 @@ class Album extends Model
 
     public function pictures()
     {
-        return $this->belongsToMany('App\Picture');
+        return $this->belongsToMany('App\Picture')->withPivot('id','sort');
     }
 
     public function sliders(){
