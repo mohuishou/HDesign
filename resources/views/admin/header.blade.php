@@ -12,7 +12,9 @@
         <li class="dropdown margin-right">
             <a class="dropdown-toggle padding-left-no padding-right-no" data-toggle="dropdown">
                 <span class="access-hide">John Smith</span>
+                @if(isset($avatar))
                 <span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="{{asset(getPic($avatar))}}"></span>
+                    @endif
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
 

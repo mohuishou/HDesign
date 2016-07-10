@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
     $('#home-cover .cover-2').imagesLoaded(function () {
         $(this).unbind('load').show().addClass('animate-fade-in-2');
-        startHomeBg();
+        setTimeout(startHomeBg,1500);//定时执行
     });
 // Mobile set-up
     if (touchScreen) {
