@@ -4,7 +4,7 @@
     <div class="kefu-open">
         <div>
             <ul>
-                <li><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=8929350&amp;site=qq&amp;menu=yes" target="_blank" style="padding-left: 35px;"><i class="qq" style="left: 10px;"></i>Contact us</a></li>
+                <li><a href="http://wpa.qq.com/msgrd?v=3&uin=423068714&site=qq&menu=yes" target="_blank" style="padding-left: 35px;"><i class="qq" style="left: 10px;"></i>Contact us</a></li>
                 <li><a href="/admin" target="_blank" style="padding-left: 35px;"><i class="txt" style="left: 10px;"></i>Project</a></li>
             </ul>
         </div>

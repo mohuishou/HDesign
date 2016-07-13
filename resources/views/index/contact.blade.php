@@ -1,3 +1,4 @@
+
 <!-- Contact -->
 <div id="contact-container">
     <div id="contact-wrapper">
@@ -32,11 +33,29 @@
         <div id="contact-column-3" class="contact-column">
             <div class="contact-column-text">
                 <h4>留言</h4>
-                <p>
-                <form>
-                    <input class="" type="text">
+                <form id="contact-msg" onsubmit="return false;">
+                    {{ csrf_field() }}
+
+                    <div>
+                        <label for="name">姓名:</label>
+                        <input class="" required type="text" name="name" id="name">
+                    </div>
+                    <div>
+                        <label for="tel">手机:</label>
+                        <input class="" required type="text" name="tel" id="tel">
+                    </div>
+                    <div>
+                        <label for="email">邮箱:</label>
+                        <input class="" required type="email" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="comment">留言:</label>
+                        <textarea name="comment" id="comment" required class="" rows="2"></textarea>
+                    </div>
+                    <div>
+                        <button class="button" type="submit" onclick="msgAdd()">提交</button>
+                    </div>
                 </form>
-                </p>
             </div>
         </div>
         <a>SITE BY MONOLITH</a>
@@ -472,3 +491,56 @@
 </div>
 </div>
 <!-- END Contact -->
+
+@section('script')
+
+    @parent
+    <script>
+        function msgAdd() {
+            if(!$('#name').val()){
+                swal('警告','姓名不能为空','warning');
+                return false;
+            }
+
+            if(!$('#tel').val()){
+                swal('警告','手机号不能为空','warning');
+                return false;
+            }
+
+            if(!$('#email').val()){
+                swal('警告','邮箱不能为空','warning');
+                return false;
+            }
+
+            if(!$('#comment').val()){
+                swal('警告','留言不能为空','warning');
+                return false;
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url:'/message/add',
+                data:$('#contact-msg').serialize(),
+                error: function(request) {
+                    swal('警告','服务器错误','warning');
+                },
+                success: function(data) {
+                    if(data.status==200){
+                        swal({
+                            title: '添加成功',
+                            text: '添加成功',
+                            type: 'success'
+                        }).then(function(isConfirm) {
+                            location.reload();
+                        });
+                    }else {
+                        swal('警告','添加失败，请稍后重试','warning');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        }
+    </script>
+@endsection

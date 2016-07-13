@@ -33,6 +33,11 @@ Route::group(['namespace'=>'Index\\'] ,function ($app) {
     ]);
 });
 
+Route::post('message/add',[
+    'as' => 'message.add',
+    'uses' => 'Admin\MessageController@add'
+]);
+
 #后台路由
 Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,function ($app) {
 

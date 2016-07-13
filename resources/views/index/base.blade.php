@@ -5,6 +5,7 @@
     @parent
 
     <link rel="stylesheet" href="{{asset('css/index/styles.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/sweetalert2.min.css')}}" />
 
 @endsection
 
@@ -66,6 +67,7 @@
     <script src="{{asset('js/index/gistfile1.js')}}"></script>
     <script src="{{asset('js/index/velocity.min.js')}}"></script>
     <script src="{{asset('js/index/common.js')}}"></script>
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 
 
 @endsection
