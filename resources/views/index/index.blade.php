@@ -59,7 +59,7 @@
 
             @foreach($sliders as $k=> $slider )
                 homeImage{{$k+1}}File ='{{asset(getPic($slider->albums->cover))}}';
-                homeImage{{$k+1}}Title ='{{$slider->albums->en_name}}';
+                homeImage{{$k+1}}Title ='{{$slider->albums->en_title}}/{{$slider->albums->cn_title}}';
                 homeImage{{$k+1}}FileWidth = '1000';
                 homeImage{{$k+1}}FileHeight = '667';
                 homeImage{{$k+1}}Link = "./album/{{$slider->aid}}";

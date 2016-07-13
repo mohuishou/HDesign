@@ -12,7 +12,10 @@
         <meta property="og:site_name" content="{{sConfig('web_name')}}" />
         <meta property="og:description" content="{{sConfig('web_description')}}" />
         <title>{{isset($title)?$title:""}}|{{sConfig('web_name')}}</title>
+        {{--统计代码--}}
 
+            {!! html_entity_decode(sConfig('web_statistics')) !!}
+        
         @section('head')
         @show
 

@@ -100,7 +100,7 @@
                             <div class="bar" style="width: 0%;"></div>
                         </div>
                         <div>
-                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
+                            <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light">提交</button>
                         </div>
                     </form>
                 </div>
@@ -194,14 +194,14 @@
          });
 
         /**
-         * 添加目录
+         * 添加用户
          */
         function add() {
             $('#user-add').modal('hide');
             $.ajax({
                 type: "POST",
                 url:'/admin/user/add',
-                data:$('form').serialize(),
+                data:$('#form-add').serialize(),
                 error: function(request) {
                     swal('警告','服务器错误','warning');
                 },
@@ -242,7 +242,7 @@
             $.ajax({
                 type: "POST",
                 url:'/admin/user/update',
-                data:$('form').serialize(),
+                data:$('#form-update').serialize(),
                 error: function(request) {
                     swal('警告','服务器错误','warning');
                 },

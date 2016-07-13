@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group form-group-label">
                                 <label class="floating-label" for="web_statistics">统计代码</label>
-                                <textarea class="form-control textarea-autosize"  id="web_statistics" name="web_statistics" rows="2">{{sConfig('$web_statistics')}}</textarea>
+                                <textarea class="form-control textarea-autosize"  id="web_statistics" name="web_statistics" rows="2">{{sConfig('web_statistics')}}</textarea>
                             </div>
                         {{--</form>--}}
                     </div>
