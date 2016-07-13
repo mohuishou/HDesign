@@ -8,6 +8,10 @@
 
                 </li>
                 <li>
+                    <a class="collapsed waves-attach waves-effect"  href="/admin/user">用户管理</a>
+
+                </li>
+                <li>
                     <a class="collapsed waves-attach waves-effect"  data-toggle="collapse"   href="#m-category">栏目导航</a>
                     <ul class="menu-collapse collapse in" id="m-category">
                         <li>

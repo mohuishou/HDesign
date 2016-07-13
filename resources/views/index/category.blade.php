@@ -43,7 +43,9 @@
                                 <img class="dark" src="{{asset(getPic($album->cover))}}"/>
                                 <img class="color" style="display: none;" src="{{asset(getPic($album->cover))}}"/>
                             </div>
-                            <div style="text-align: center;" class="projects-info">{{$album->en_title}}</div>
+                            <div style="text-align: center;" class="projects-info">
+                                <p>{{$album->en_title}}/{{$album->cn_title}}</p>
+                            </div>
                         </a>
                     </div>
                 @endforeach

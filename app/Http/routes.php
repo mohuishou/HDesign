@@ -49,7 +49,6 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
             'uses' => 'UserController@logout'
         ]);
 
-
         #user
         $app->get('user',[
             'as' => 'user.show',
@@ -173,6 +172,25 @@ Route::group(['as' => 'admin.','prefix' => 'admin/','namespace'=>'Admin\\'] ,fun
         $app->post('slider',[
             'as' => 'slider.update',
             'uses' => 'SliderController@update'
+        ]);
+
+        #留言路由
+        $app->get('message',[
+            'as' => 'message.show',
+            'uses' => 'MessageController@index'
+        ]);
+
+        $app->post('message/add',[
+            'as' => 'message.add',
+            'uses' => 'MessageController@add'
+        ]);
+        $app->post('message/update',[
+            'as' => 'message.update',
+            'uses' => 'MessageController@update'
+        ]);
+        $app->post('message/del',[
+            'as' => 'message.delete',
+            'uses' => 'MessageController@destroy'
         ]);
 
     });

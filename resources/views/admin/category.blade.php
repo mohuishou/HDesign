@@ -7,6 +7,10 @@
         .fbtn-container{
             margin-bottom:50px;
         }
+        .back-img{
+            width:20px;
+            height:20px;
+        }
     </style>
 
 
@@ -55,9 +59,28 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3 fbtn-container">
-            <a data-toggle="modal" data-target="#category-add" class="fbtn waves-attach waves-circle waves-light fbtn-lg fbtn-brand"><i class="icon icon-lg">add</i> </a>
+            <div class="fbtn-inner">
+                <a class="fbtn fbtn-lg fbtn-brand waves-attach waves-circle waves-light waves-effect" data-toggle="dropdown">
+                    <span class="fbtn-text fbtn-text-left">操作</span>
+                    <span class="fbtn-ori icon">apps</span>
+                    <span class="fbtn-sub icon">close</span>
+                </a>
+                <div class="fbtn-dropup">
+                    <a class="fbtn waves-attach waves-circle waves-effect"data-toggle="modal" data-target="#category-add" >
+                        <span class="fbtn-text fbtn-text-left">添加</span>
+                        <span class="icon">add</span></a>
+                    <a class="fbtn fbtn-brand waves-attach waves-circle waves-light waves-effect" href="#" onclick="goBack()">
+                        <span class="fbtn-text fbtn-text-left">返回</span>
+                        <img class="back-img" src="{{asset('images/back.png') }}" />
+                    </a>
+
+                </div>
+            </div>
         </div>
+
+
     </div>
 
 
@@ -110,10 +133,10 @@
         $(document).ready(function () {
             $('#last option[value={{$pid}}]').attr('selected','selected');
         });
-//        $("form").submit(function () {
-//            add();
-//            return false;
-//        });
+
+        function goBack() {
+            history.go(-1);
+        }
 
         /**
          * 添加目录

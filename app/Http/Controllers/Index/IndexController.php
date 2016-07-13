@@ -71,7 +71,7 @@ class IndexController extends Controller{
 
         $album=Album::find($aid);
 
-        $pictures=$album->pictures()->orderBy('sort','decs')->get();
+        $pictures=$album->pictures() ->orderBy('sort','decs')->get();
 
         $data=[
             'title'=>$album->en_title."|".$album->cn_title,

@@ -16,8 +16,8 @@
 
 @endsection
 @section('admin-main')
-    <div class="container admin-main" id="category">
-        <div class="card col-md-8 col-md-offset-2">
+    <div class="container admin-main" id="message">
+        <div class="card col-md-11">
             <div class="card-main">
                 <div class="card-inner">
                     <h2>{{$title}}</h2>
@@ -26,23 +26,24 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>中文标题</th>
-                                <th>英文标题</th>
-                                <th>描述</th>
+                                <th>姓名</th>
+                                <th>邮箱</th>
+                                <th>手机号</th>
+                                <th>留言</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($albums as $album)
+                            @foreach($message as $msg)
                                 <tr>
-                                    <td>{{$album->id}}</td>
-                                    <td>{{$album->cn_title}}</td>
-                                    <td>{{$album->en_title}}</td>
-                                    <td>{{$album->description}}</td>
+                                    <td>{{$msg->id}}</td>
+                                    <td>{{$msg->name}}</td>
+                                    <td>{{$msg->email}}</td>
+                                    <td>{{$msg->tel}}</td>
+                                    <td>{{$msg->comment}}</td>
                                     <td>
-                                        <a class="btn btn-brand waves-attach waves-effect" href="/admin/picture?aid={{$album->id}}&title={{$album->cn_title}}">查看图片</a>
-                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
-                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$msg->id}}','{{$msg->name}}','{{$msg->email}}','{{$msg->tel}}','{{$msg->comment}}');">更新</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$msg->id}})">删除</a>
                                     </td>
                                 </tr>
 
@@ -57,6 +58,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3 fbtn-container">
             <div class="fbtn-inner">
                 <a class="fbtn fbtn-lg fbtn-brand waves-attach waves-circle waves-light waves-effect" data-toggle="dropdown">
@@ -65,7 +67,7 @@
                     <span class="fbtn-sub icon">close</span>
                 </a>
                 <div class="fbtn-dropup">
-                    <a class="fbtn waves-attach waves-circle waves-effect" data-toggle="modal" data-target="#album-add" >
+                    <a class="fbtn waves-attach waves-circle waves-effect"data-toggle="modal" data-target="#message-add" >
                         <span class="fbtn-text fbtn-text-left">添加</span>
                         <span class="icon">add</span></a>
                     <a class="fbtn fbtn-brand waves-attach waves-circle waves-light waves-effect" href="#" onclick="goBack()">
@@ -76,40 +78,37 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 
 
     <!-- add Modal -->
-    <div aria-hidden="true" class="modal fade in" id="album-add" role="dialog" tabindex="-1" style="display: none;">
+    <div aria-hidden="true" class="modal fade in" id="message-add" role="dialog" tabindex="-1" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-heading">
                     <a class="modal-close" data-dismiss="modal">×</a>
-                    <h2 class="modal-title">添加图集</h2>
+                    <h2 class="modal-title">添加留言</h2>
                 </div>
                 <div class="modal-inner">
                     <form onsubmit="return false;">
                         {{ csrf_field() }}
                         <div class="form-group form-group-label">
-                            <label class="floating-label" for="last">上级栏目 </label>
-                            <select class="form-control" id="last" required name="cid">
-                                @foreach(App\Category::where('pid','>','0')->get() as $cate)
-                                        <option value="{{$cate->id}}">{{$cate->cn_title}}</option>
-                                @endforeach
-
-                            </select>
+                            <label class="floating-label" for="name">姓名</label>
+                            <input class="form-control" required id="name" name="name" type="text">
                         </div>
                         <div class="form-group form-group-label">
-                            <label class="floating-label" for="cn-title">中文标题</label>
-                            <input class="form-control" required id="cn-title" name="cn_title" type="text">
+                            <label class="floating-label" for="tel">手机</label>
+                            <input class="form-control" required maxlength="11" id="tel" name="tel" type="text">
                         </div>
                         <div class="form-group form-group-label">
-                            <label class="floating-label" for="en-title">英文标题</label>
-                            <input class="form-control" required id="en-title" name="en_title" type="text">
+                            <label class="floating-label" for="email">邮箱</label>
+                            <input class="form-control" required id="email" name="email" type="email">
                         </div>
                         <div class="form-group form-group-label">
-                            <label class="floating-label" for="description">图集描述 </label>
-                            <textarea class="form-control textarea-autosize"  name="description" id="description" required maxlength="255" rows="2"></textarea>
+                            <label class="floating-label" for="comment">留言</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
                         </div>
                         <div>
                             <button id="post" type="submit" class="btn btn-flat btn-block waves-attach waves-light" onclick="add()">提交</button>
@@ -129,12 +128,7 @@
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('#last option[value={{$cid}}]').attr('selected','selected');
         });
-        //        $("form").submit(function () {
-        //            add();
-        //            return false;
-        //        });
 
         function goBack() {
             history.go(-1);
@@ -144,10 +138,10 @@
          * 添加目录
          */
         function add() {
-            $('#album-add').modal('hide');
+            $('#message-add').modal('hide');
             $.ajax({
                 type: "POST",
-                url:'/admin/album/add',
+                url:'/admin/message/add',
                 data:$('form').serialize(),
                 error: function(request) {
                     swal('警告','服务器错误','warning');
@@ -170,18 +164,19 @@
             return false;
         }
 
-        function update(id,cn_title,en_title,description) {
-            $('#album-add .modal-title').text('更新图集');
-            $('#album-add #cn-title').val(cn_title);
-            $('#album-add #en-title').val(en_title);
-            $('#album-add #description').val(description);
-            $('#album-add form').append("<input type='hidden' name='id' value="+id+">");
-            $('#album-add #post').attr('onclick','');
-            $('#album-add #post').click(function () {
-                $('#album-add').modal('hide');
+        function update(id,name,email,tel,comment) {
+            $('#message-add .modal-title').text('更新目录');
+            $('#message-add #name').val(name);
+            $('#message-add #email').val(email);
+            $('#message-add #tel').val(tel);
+            $('#message-add #comment').val(comment);
+            $('#message-add form').append("<input type='hidden' name='id' value="+id+">");
+            $('#message-add #post').attr('onclick','');
+            $('#message-add #post').click(function () {
+                $('#message-add').modal('hide');
                 $.ajax({
                     type: "POST",
-                    url:'/admin/album/update',
+                    url:'/admin/message/update',
                     data:$('form').serialize(),
                     error: function(request) {
                         swal('警告','服务器错误','warning');
@@ -202,7 +197,7 @@
                     }
                 });
             });
-            $('#album-add').modal('show');
+            $('#message-add').modal('show');
         }
 
         /**
@@ -212,7 +207,7 @@
         function del(id) {
             swal({
                 title: 'Are you sure?',
-                text: '你将要删除该目录',
+                text: '你将要删除该留言',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
@@ -221,7 +216,7 @@
                 if (isConfirm === true) {
                     $.ajax({
                         type: "POST",
-                        url:'/admin/album/del?id='+id,
+                        url:'/admin/message/del?id='+id,
                         error: function(request) {
                             swal('Oops...', '服务器错误', 'error');
                         },
@@ -251,7 +246,7 @@
                 } else if (isConfirm === false) {
                     swal(
                             'Cancelled',
-                            '该图集未被删除)',
+                            '该留言未被删除)',
                             'error'
                     );
 

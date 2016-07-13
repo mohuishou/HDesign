@@ -41,6 +41,15 @@
 
         }
 
+        .fbtn-container{
+            margin-bottom:50px;
+        }
+        .back-img{
+            width:20px;
+            height:20px;
+        }
+
+
 
     </style>
 
@@ -86,14 +95,22 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3 fbtn-container">
+            <a class="fbtn fbtn-brand waves-attach waves-circle waves-light waves-effect" href="#" onclick="goBack()">
+                <span class="fbtn-text fbtn-text-left">返回</span>
+                <img class="back-img" src="{{asset('images/back.png') }}" />
+            </a>
+        </div>
     </div>
+
+
 
     <div aria-hidden="true" class="modal modal-va-middle fade" id="sort-modal" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-xs">
             <div class="modal-content">
                 <div class="modal-heading">设置图片顺序</div>
                 <div class="modal-inner">
-                    <form id="form-sort">
+                    <form onsubmit="return false;" id="form-sort">
                         <div class="form-group form-group-label">
                             <label class="floating-label" for="sort">数字越大越靠前</label>
                             <input class="form-control" id="sort" name="sort" type="number">
@@ -118,6 +135,9 @@
 
     <script>
 
+        function goBack() {
+            history.go(-1);
+        }
 
         /**
          * 图片批量上传
