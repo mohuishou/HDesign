@@ -65,12 +65,6 @@
                 homeImage{{$k+1}}Link = "./album/{{$slider->aid}}";
             @endforeach
 
-
-            // Mouse events
-            // Set-up
-            // Mobile set-up
-            if (touchScreen) {
-            }
         });
     </script>
 

@@ -22,7 +22,7 @@
                 @endif
             @endforeach
             {{--<span></span>--}}
-            <a href="about.html" >
+            <a href="/about" >
                 <p>ABOUT</p>
                 <p>关于</p>
             </a>

@@ -83,6 +83,12 @@ class IndexController extends Controller{
 
     }
 
+    public function about(){
+        $data=[
+            'title'=>'关于'];
+        return view('index.about',$data);
+    }
+
 
 
 

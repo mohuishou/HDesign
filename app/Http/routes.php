@@ -31,6 +31,10 @@ Route::group(['namespace'=>'Index\\'] ,function ($app) {
         'as' => 'index.category',
         'uses' => 'IndexController@category'
     ]);
+    $app->get('/about', [
+        'as' => 'index.about',
+        'uses' => 'IndexController@about'
+    ]);
 });
 
 Route::post('message/add',[

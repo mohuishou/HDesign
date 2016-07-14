@@ -15,7 +15,7 @@
         {{--统计代码--}}
 
             {!! html_entity_decode(sConfig('web_statistics')) !!}
-        
+
         @section('head')
         @show
 
