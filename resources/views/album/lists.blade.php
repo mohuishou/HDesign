@@ -38,10 +38,10 @@
                                     <td>{{$album->id}}</td>
                                     <td>{{$album->cn_title}}</td>
                                     <td>{{$album->en_title}}</td>
-                                    <td>{{$album->description}}</td>
+                                    <td class="album-description">{{$album->description}}</td>
                                     <td>
                                         <a class="btn btn-brand waves-attach waves-effect" href="/admin/picture?aid={{$album->id}}&title={{$album->cn_title}}">查看图片</a>
-                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}','{{$album->description}}');">更新</a>
+                                        <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="update('{{$album->id}}','{{$album->cn_title}}','{{$album->en_title}}',this);">更新</a>
                                         <a class="btn btn-brand waves-attach waves-circle waves-light" onclick="del({{$album->id}})">删除</a>
                                     </td>
                                 </tr>
@@ -170,10 +170,11 @@
             return false;
         }
 
-        function update(id,cn_title,en_title,description) {
+        function update(id,cn_title,en_title,t) {
             $('#album-add .modal-title').text('更新图集');
             $('#album-add #cn-title').val(cn_title);
             $('#album-add #en-title').val(en_title);
+            var description=$(t).parent().parent().find('.album-description').text();
             $('#album-add #description').val(description);
             $('#album-add form').append("<input type='hidden' name='id' value="+id+">");
             $('#album-add #post').attr('onclick','');
