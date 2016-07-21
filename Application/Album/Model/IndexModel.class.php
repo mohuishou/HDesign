@@ -17,7 +17,7 @@ class IndexModel extends Model {
      * 模块名称
      * @author jry <598821125@qq.com>
      */
-    public $moduleName = 'Cms';
+    public $moduleName = 'Album';
 
     /**
      * 数据库真实表名
@@ -67,20 +67,7 @@ class IndexModel extends Model {
         }
     }
 
-    /**
-     * 检查分类是否允许前台会员投稿
-     * @return int 时间戳
-     * @author jry <598821125@qq.com>
-     */
-    protected function checkPostAuth() {
-        if (MODULE_NAME == 'Home') {
-            $category_post_auth = D($this->moduleName.'/Category')->getFieldById(I('post.cid'), 'post_auth');
-            if (!$category_post_auth) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     /**
      * 新增或更新一个文章
@@ -174,7 +161,7 @@ class IndexModel extends Model {
         if (!$order) {
             $order = 'sort desc,'.$base_table.'.id desc';
         }
-        $extend_table = strtolower(C('DB_PREFIX').$this->moduleName.'_'.$type['name']);
+        $extend_table = strtolower(C('DB_PREFIX').$this->moduleName.'_'.'albums');
         $return_list = $this->page($page, $limit)
                              ->order($order)
                              ->join($extend_table.' ON '.$base_table.'.id = '.$extend_table.'.id')

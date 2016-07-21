@@ -31,45 +31,20 @@ class IndexAdmin extends AdminController {
             //获取分类信息
             $category_info = D('Category')->find($cid);
 
-//            //获取该分类绑定文档模型的主要字段
-//            $type_object = D('Type');
-//            $article_type_main_field = D('Attribute')->getFieldById($article_type['main_field'], 'name');
 //
-//            //获取分类绑定模型定义的列表需要显示的字段
-//            $doc_type_list_field = explode(',', $article_type['list_field']);
 
-            //获取文档字段
-            $map = array();
-            $map['status'] = array('eq', '1');
-            $map['show'] = array('eq', '1');
-            $map['id'] = array('in', $doc_type_list_field); //只获取列表定义的字段
-            $attribute_list = D('Attribute')->where($map)->select();
-            $attribute_list_search = D('Attribute')->where($map)->getField('name', true);
-
-            //获取文档信息
+            //获取图集信息
             $map = array();
             $map['cid'] = $cid;
             $map['status'] = array('egt', 0);
 
-            //搜索条件这里用了TP的复合查询
-            //封装了一个新的查询条件$map_field，然后并入原来的查询条件$map之中，所以可以完成比较复杂的查询条件组装
-            $keyword = I('keyword', '', 'string');
-            if ($attribute_list_search && $keyword) {
-                foreach ($attribute_list_search as $attribute) {
-                    $map_field[$attribute] = array('like','%'.$keyword.'%'); //搜索条件
-                }
-                $map_field['_logic'] = 'or';
-                $map['_complex'] = $map_field;
-            }
-
-            //获取文档列表
-            $article_list = D('Index')->getList($cid, C('ADMIN_PAGE_ROWS'), $_GET['p'] ? : 1, null, false, $map);
-            $article_table = strtolower(C('DB_PREFIX').D('Index')->moduleName.'_'.$article_type['name']);
+            $album_lists=[];
+            $album_table=strtolower(C('DB_PREFIX').D('Index')->moduleName.'_'.'albums');
 
             //分页
             $base_table = C('DB_PREFIX').D('Index')->tableName;
             $page = new Page(D('Index')->where($map)
-                  ->join($article_table.' ON '.$base_table.'.id = '.$article_table.'.id')
+                  ->join($album_table.' ON '.$base_table.'.id = '.$album_table.'.id')
                   ->count(), C('ADMIN_PAGE_ROWS'));
 
             //移动按钮属性
@@ -77,21 +52,20 @@ class IndexAdmin extends AdminController {
             $move_attr['class'] = 'btn btn-info';
             $move_attr['onclick'] = 'move()';
 
-            //构造移动文档所需内容
+            //构造移动图集所需内容
             $map = array();
             $map['status'] = array('eq', 1);
-            $map['doc_type'] = array('eq', $category_info['doc_type']); //文档类型相同的分类才能移动
             $category_list = D('Category')->where($map)->select();
             $tree = new \Common\Util\Tree();
             $category_list = $tree->toFormatTree($category_list);
 
-            //构造移动文档的目标分类列表
+            //构造移动图集的目标分类列表
             $options = '';
             foreach ($category_list as $key => $val) {
                 $options .= '<option value="'.$val['id'].'">'.$val['title_show'].'</option>';
             }
 
-            //文档移动POST地址
+            //图集移动POST地址
             $move_url = U(D('Index')->moduleName.'/Index/move');
 
             $extra_html = <<<EOF
@@ -145,23 +119,12 @@ EOF;
                     ->addTopButton('self', $move_attr) //添加移动按钮
                     ->setSearch('请输入ID/标题', U('index', array('cid' => $cid)))
                     ->addTableColumn('id', 'ID')
-                    ->addTableColumn('title_url', '标题');
-
-            //动态生成列表显示的字段
-            if ($attribute_list) {
-                foreach($attribute_list as $attribute){
-                    if ($attribute['name'] !== $article_type_main_field) {
-                        $builder->addTableColumn($attribute['name'], $attribute['title'], $attribute['type']);
-                    }
-                }
-            }
-
-            //继续使用Builder快速建立列表页面
-            $builder->addTableColumn('create_time', '发布时间', 'time')
+                    ->addTableColumn('title_url', '标题')
+                    ->addTableColumn('create_time', '发布时间', 'time')
                     ->addTableColumn('sort', '排序', 'text')
                     ->addTableColumn('status', '状态', 'status')
                     ->addTableColumn('right_button', '操作', 'btn')
-                    ->setTableDataList($article_list) //数据列表
+                    ->setTableDataList($album_lists) //数据列表
                     ->setTableDataPage($page->show())  //数据列表分页
                     ->addRightButton('edit')    //添加编辑按钮
                     ->addRightButton('forbid')  //添加禁用/启用按钮
@@ -173,65 +136,34 @@ EOF;
     }
 
     /**
-     * 新增文档
+     * 新增图集
      * @author jry <598821125@qq.com>
      */
     public function add($cid) {
         if (IS_POST) {
-            //新增文档
-            $article_object = D('Index');
-            $result = $article_object->update();
+            //新增图集
+            $album_object = D('Index');
+            $result = $album_object->update();
             if(!$result){
-                $this->error($article_object->getError());
+                $this->error($album_object->getError());
             }else{
                 $this->success('新增成功', U('index', array('cid' => I('post.cid'))));
             }
         } else {
             //获取当前分类
             $category_info = D('Category')->find($cid);
-            $doc_type = D('Type')->find($category_info['doc_type']);
-            $field_sort = json_decode($doc_type['field_sort'], true);
-            $field_group = parse_attr($doc_type['field_group']);
-
-            //获取文档字段
-            $map['status'] = array('eq', '1');
-            $map['show'] = array('eq', '1');
-            $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
-            $attribute_list = D('Attribute')->where($map)->select();
-
-            //解析字段options
-            $new_attribute_list = array();
-            foreach ($attribute_list as $attr) {
-                if ($attr['name'] == 'cid') {
-                    $con['group'] = $category_info['group'];
-                    $con['doc_type'] = $category_info['doc_type'];
-                    $con['status'] = array('egt', 0);
-                    $attr['value'] = $cid;
-                    $attr['options'] = select_list_as_tree('Category', $con);
-                } else {
-                    $attr['options'] = parse_attr($attr['options']);
-                }
-                $new_attribute_list[$attr['id']] = $attr;
-            }
-
-            //表单字段排序及分组
-            if ($field_sort) {
-                $new_attribute_list_sort = array();
-                foreach ($field_sort as $k1 => &$v1) {
-                    $new_attribute_list_sort[0]['type'] = 'group';
-                    $new_attribute_list_sort[0]['options']['group'.$k1]['title'] = $field_group[$k1];
-                    foreach ($v1 as $k2 => $v2) {
-                        $new_attribute_list_sort[0]['options']['group'.$k1]['options'][] = $new_attribute_list[$v2];
-                    }
-                }
-                $new_attribute_list = $new_attribute_list_sort;
-            }
+            $map['status'] = array('EGT', -1);
 
             //使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
-            $builder->setMetaTitle('新增文章') //设置页面标题
+            $builder->setMetaTitle('新增图集') //设置页面标题
                     ->setPostUrl(U('add')) //设置表单提交地址
-                    ->setExtraItems($new_attribute_list)
+                    ->addFormItem('cid', 'select', '上级分类', '所属的上级分类', select_list_as_tree('Category', $map))
+                    ->addFormItem('title', 'text', '图集标题', '图集标题')
+                    ->addFormItem('en_title', 'text', '英文标题', '英文标题')
+                    ->addFormItem('description', 'textarea', '图集描述', '图集描述')
+                    ->addFormItem('sort', 'num', '排序', '用于显示的顺序')
+                    ->setFormData(array('cid' => $category_info['id']))
                     ->setTemplate('Builder/form')
                     ->display();
         }
@@ -242,27 +174,27 @@ EOF;
      * @author jry <598821125@qq.com>
      */
     public function edit($id) {
-        //获取文档信息
-        $article_info = D('Index')->detail($id);
+        //获取图集信息
+        $album_info = D('Index')->detail($id);
 
         if (IS_POST) {
-            //更新文档
-            $article_object = D('Index');
-            $result = $article_object->update();
+            //更新图集
+            $album_object = D('Index');
+            $result = $album_object->update();
             if (!$result) {
-                $this->error($article_object->getError());
+                $this->error($album_object->getError());
             } else {
                 $this->success('更新成功', U('index', array('cid' => I('post.cid'))));
             }
         } else {
 
             //获取当前分类
-            $category_info = D('Category')->find($article_info['cid']);
+            $category_info = D('Category')->find($album_info['cid']);
             $doc_type = D('Type')->find($category_info['doc_type']);
             $field_sort = json_decode($doc_type['field_sort'], true);
             $field_group = parse_attr($doc_type['field_group']);
 
-            //获取文档字段
+            //获取图集字段
             $map['status'] = array('eq', '1');
             $map['show'] = array('eq', '1');
             $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
@@ -280,7 +212,7 @@ EOF;
                     $attr['options'] = parse_attr($attr['options']);
                 }
                 $new_attribute_list[$attr['id']] = $attr;
-                $new_attribute_list[$attr['id']]['value'] = $article_info[$attr['name']];
+                $new_attribute_list[$attr['id']]['value'] = $album_info[$attr['name']];
             }
 
             //表单字段排序及分组
@@ -302,14 +234,14 @@ EOF;
                     ->setPostUrl(U('edit')) //设置表单提交地址
                     ->addFormItem('id', 'hidden', 'ID', 'ID')
                     ->setExtraItems($new_attribute_list)
-                    ->setFormData($article_info)
+                    ->setFormData($album_info)
                     ->setTemplate('Builder/form')
                     ->display();
         }
     }
 
     /**
-     * 移动文档
+     * 移动图集
      * @author jry <598821125@qq.com>
      */
     public function move() {
@@ -343,7 +275,7 @@ EOF;
      */
     public function recycle() {
         $map['status'] = array('eq', '-1');
-        $article_list = D('Index')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
+        $album_list = D('Index')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
         $page = new Page(D('Index')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
@@ -351,14 +283,14 @@ EOF;
         $builder->setMetaTitle('回收站') //设置页面标题
                 ->addTopButton('delete', array('model' => D('Index')->tableName)) //添加删除按钮
                 ->addTopButton('restore', array('model' => D('Index')->tableName)) //添加还原按钮
-                ->setSearch('请输入ID/文档名称', U('recycle'))
+                ->setSearch('请输入ID/图集名称', U('recycle'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title', '标题')
                 ->addTableColumn('create_time', '发布时间', 'time')
                 ->addTableColumn('sort', '排序')
                 ->addTableColumn('status', '状态', 'status')
                 ->addTableColumn('right_button', '操作', 'btn')
-                ->setTableDataList($article_list) //数据列表
+                ->setTableDataList($album_list) //数据列表
                 ->setTableDataPage($page->show()) //数据列表分页
                 ->addRightButton('restore') //添加还原按钮
                 ->addRightButton('delete') //添加删除按钮
