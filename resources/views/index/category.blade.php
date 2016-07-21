@@ -98,7 +98,7 @@
             $('#slider li, #slider, #slider_box').width(col * 326);
             $('#slider li, #slider, #slider_box').height(row * 250);
             $("#slider").easySlider({
-                "controlsShow":false
+//                "controlsShow":false
             });
         });
         $(window).load(function () {
@@ -107,6 +107,7 @@
             if ($('#slider li').length == 1) {
                 $('#prevBtn').hide();
                 $('#nextBtn').hide();
+                $('#controls').hide()
             }
 
             $('#slider .project_item').hover(
