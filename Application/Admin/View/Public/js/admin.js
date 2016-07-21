@@ -118,20 +118,20 @@ $(function(){
     });
 
     // 检测更新
-    if ($('.ct-update').length != 0) {
-        // 检测更新
-        $.ajax({
-            url: $('input[name="check_version_url"]').val(),
-            type: 'GET',
-        }).done(function(data) {console.log();
-            if (data.status == 1) {
-                $('.version').html(data.info);
-                if (data.sn_info) {
-                    $('.sn_info').html(data.sn_info);
-                }
-            } else {
-                $.alertMessager(data.info, 'danger');
-            }
-        });
-    }
+    // if ($('.ct-update').length != 0) {
+    //     // 检测更新
+    //     $.ajax({
+    //         url: $('input[name="check_version_url"]').val(),
+    //         type: 'GET',
+    //     }).done(function(data) {console.log();
+    //         if (data.status == 1) {
+    //             $('.version').html(data.info);
+    //             if (data.sn_info) {
+    //                 $('.sn_info').html(data.sn_info);
+    //             }
+    //         } else {
+    //             $.alertMessager(data.info, 'danger');
+    //         }
+    //     });
+    // }
 });

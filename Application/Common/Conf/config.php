@@ -16,23 +16,23 @@ $_config = array(
      * 根据OpenCMF用户协议：
      * 任何情况下使用OpenCMF均需获取官方授权（除了开源版本即CoreThink），违者追究法律责任，授权联系：admin@opencmf.cn
      */
-    'PRODUCT_NAME'    => 'OpenCMF',                      // 产品名称
-    'PRODUCT_LOGO'    => '<b><span class="open" style="color: #a5aeb4;">Core</span><span class="cmf" style="color: #3fa9f5;">Think</span></b>',  // 产品Logo
+    'PRODUCT_NAME'    => 'Mohuishou',                      // 产品名称
+    'PRODUCT_LOGO'    => '<b><span class="open" style="color: #a5aeb4;">Mo</span><span class="cmf" style="color: #3fa9f5;">huishou</span></b>',  // 产品Logo
     'CURRENT_VERSION' => '1.2.0',                        // 当前版本号
     'DEVELOP_VERSION' => 'release',                      // 开发版本号
     'BUILD_VERSION'   => '201601222050',                 // 编译标记
-    'PRODUCT_MODEL'   => 'corethink',                    // 产品型号
+    'PRODUCT_MODEL'   => 'Mohuishou',                    // 产品型号
     'PRODUCT_TITLE'   => '开源版',                        // 产品标题
-    'WEBSITE_DOMAIN'  => 'http://www.corethink.cn',      // 官方网址
+    'WEBSITE_DOMAIN'  => 'http://lxl520.com',      // 官方网址
     'UPDATE_URL'      => '/appstore/home/core/update',   // 官方更新网址
-    'COMPANY_NAME'    => '南京科斯克网络科技有限公司',     // 公司名称
-    'DEVELOP_TEAM'    => '南京科斯克网络科技有限公司',     // 当前项目开发团队名称
+    'COMPANY_NAME'    => '莫回首',     // 公司名称
+    'DEVELOP_TEAM'    => '莫回首',     // 当前项目开发团队名称
 
     // 产品简介
-    'PRODUCT_INFO'    => 'OpenCMF是一套基于统一核心的通用互联网+信息化服务解决方案，追求简单、高效、卓越。可轻松实现支持多终端的WEB产品快速搭建、部署、上线。系统功能采用模块化、组件化、插件化等开放化低耦合设计，应用商城拥有丰富的功能模块、插件、主题，便于用户灵活扩展和二次开发。',
+    'PRODUCT_INFO'    => 'HDesign官方网站由莫回首根据第三方开源框架Corethink二次开发',
 
     // 公司简介
-    'COMPANY_INFO'    => '南京科斯克网络科技有限公司是一家新兴的互联网+项目技术解决方案提供商。我们用敏锐的视角洞察IT市场的每一次变革,我们顶着时代变迁的浪潮站在了前沿,以开拓互联网行业新渠道为己任。',
+    'COMPANY_INFO'    => '莫回首',
 
     // 系统主页地址配置
     'HOME_PAGE'       => (is_ssl()?'https://':'http://').$_SERVER['HTTP_HOST'].__ROOT__,
