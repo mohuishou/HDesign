@@ -150,10 +150,10 @@ class IndexModel extends Model {
 
         //获取该分类绑定文章模型的主要字段
         $type_object = D($this->moduleName.'/Type');
-        $type = $type_object->where('system = 0')->find($category_info['doc_type']);
-        if ($type) {
-            $this->error = '文档模型错误';
-        }
+//        $type = $type_object->where('system = 0')->find($category_info['doc_type']);
+//        if ($type) {
+//            $this->error = '文档模型错误';
+//        }
 
         // 获取相同文档类型的子分类
         if ($child) {

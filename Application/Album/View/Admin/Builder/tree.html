@@ -5,24 +5,13 @@
 <?php
     // 获取所有分类
     $map['status'] = array('egt', '0');  // 禁用和正常状态
-    $map['group'] = array('eq', 1);
     $data_list = D('Category')->field('id,pid,title,en_title,create_time,sort,status')
                ->where($map)->order('sort asc,id asc')->select();
 
-    // 非系统特殊类型则给标题加上链接以便于进入相应文档列表
+    // 给标题加上链接以便于进入相应文档列表
     foreach ($data_list as &$item) {
-        $document_type = D('Type')->find($item['doc_type']);  // 获取当前文档类型
-        if ($document_type['name'] === 'page') {
-            $item['url'] = U('Cms/Category/edit_with_tree', array('id' => $item['id']));
+            $item['url'] = U('Album/Index/index', array('cid' => $item['id']));
             $item['target'] = "_self";
-        } else if ($document_type['name'] === 'link') {
-            if (!stristr($item['url'], 'http://') && !stristr($item['url'], 'https://')) {
-                $item['url'] = U($item['url']);
-            }
-        } else if ($document_type['system'] === '0') {
-            $item['url'] = U('Cms/Index/index', array('cid' => $item['id']));
-            $item['target'] = "_self";
-        }
     }
 
     // 转换成树状列表

@@ -31,20 +31,18 @@ class IndexAdmin extends AdminController {
             //获取分类信息
             $category_info = D('Category')->find($cid);
 
-            //获取该分类绑定文档模型的主要字段
-            $type_object = D('Type');
-            $article_type = $type_object->find($category_info['doc_type']);
-            $article_type_main_field = D('Attribute')->getFieldById($article_type['main_field'], 'name');
-
-            //获取分类绑定模型定义的列表需要显示的字段
-            $doc_type_list_field = explode(',', $article_type['list_field']);
+//            //获取该分类绑定文档模型的主要字段
+//            $type_object = D('Type');
+//            $article_type_main_field = D('Attribute')->getFieldById($article_type['main_field'], 'name');
+//
+//            //获取分类绑定模型定义的列表需要显示的字段
+//            $doc_type_list_field = explode(',', $article_type['list_field']);
 
             //获取文档字段
             $map = array();
             $map['status'] = array('eq', '1');
             $map['show'] = array('eq', '1');
             $map['id'] = array('in', $doc_type_list_field); //只获取列表定义的字段
-            $map['doc_type'] = array('eq', $category_info['doc_type']);
             $attribute_list = D('Attribute')->where($map)->select();
             $attribute_list_search = D('Attribute')->where($map)->getField('name', true);
 
