@@ -229,11 +229,10 @@ EOF;
             case 'delete' :  // 删除条目
                 $category_object = D('Category');
                 $con['cid'] = array('in',$ids);
-//                $count_child=D('Category')->where('pid='.$ids)->count();
-
-//                if($count_child!=0){
-//                    $this->error('请先删除或移动该分类下子分类');
-//                }
+                $count_child=D('Category')->where('pid='.$ids)->count();
+                if($count_child!=0){
+                    $this->error('请先删除或移动该分类下子分类');
+                }
 
                 $count = D('Index')->where($con)->count();
                 if ($count == 0) {

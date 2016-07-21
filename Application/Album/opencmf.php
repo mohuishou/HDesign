@@ -10,7 +10,7 @@
 return array(
     // 模块信息
     'info' => array(
-        'name'        => 'album',
+        'name'        => 'Album',
         'title'       => 'Album',
         'icon'        => 'fa fa-newspaper-o',
         'icon_color'  => '#9933FF',
@@ -36,7 +36,7 @@ return array(
 
     // 模块配置
     'config' => array(
-       
+
     ),
 
     // 后台菜单及权限节点配置
