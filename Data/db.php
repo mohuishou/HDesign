@@ -19,7 +19,7 @@ if (@$_SERVER[ENV_PRE.'DEV_MODE'] === 'true') {
         'DB_HOST'   => $_SERVER[ENV_PRE.'DB_HOST'] ? : '127.0.0.1',       // 服务器地址
         'DB_NAME'   => $_SERVER[ENV_PRE.'DB_NAME'] ? : 'kehu',       // 数据库名
         'DB_USER'   => $_SERVER[ENV_PRE.'DB_USER'] ? : 'root',       // 用户名
-        'DB_PWD'    => $_SERVER[ENV_PRE.'DB_PWD']  ? : '',        // 密码
+        'DB_PWD'    => $_SERVER[ENV_PRE.'DB_PWD']  ? : 'lailin123',        // 密码
         'DB_PORT'   => $_SERVER[ENV_PRE.'DB_PORT'] ? : '3306',            // 端口
         'DB_PREFIX' => $_SERVER[ENV_PRE.'DB_PREFIX'] ? : 'hd_',   // 数据库表前缀
     );
@@ -30,7 +30,7 @@ if (@$_SERVER[ENV_PRE.'DEV_MODE'] === 'true') {
         'DB_HOST'   => '127.0.0.1',       // 服务器地址
         'DB_NAME'   => 'kehu',       // 数据库名
         'DB_USER'   => 'root',       // 用户名
-        'DB_PWD'    => '',        // 密码
+        'DB_PWD'    => 'lailin123',        // 密码
         'DB_PORT'   => '3306',            // 端口
         'DB_PREFIX' => 'hd_',     // 数据库表前缀
     );
