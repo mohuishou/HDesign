@@ -47,6 +47,15 @@
         #picture-main{
             margin-top: 20px;
         }
+
+        .modal{
+            top:50px;
+        }
+
+        .modal-backdrop{
+            top:auto;
+            bottom: auto;
+        }
     </style>
 
 </block>
@@ -77,9 +86,9 @@
                         <a class="btn btn-flat btn-brand-accent"
                            onclick='del("{:U("Album/Picture/del",array("id"=>$picture["id"],"aid"=>$aid))}")'>点击删除</a>
                         <a class="btn btn-flat btn-brand-accent"
-                           onclick="setCover('{$aid}','{$picture.id}')">设为封面</a>
+                           onclick='setCover("{:U("Album/Index/setCover",array("pid"=>$picture["id"],"aid"=>$aid))}")'>设为封面</a>
                         <a class="btn btn-flat btn-brand-accent"
-                           onclick="sortPic('','')">排序</a>
+                           onclick="sortPic('{$picture.id}','{$picture.sort}')">排序</a>
                     </p>
                 </div>
             </div>
@@ -90,8 +99,8 @@
         <div aria-hidden="true" class="modal modal-va-middle fade" id="sort-modal" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-xs">
                 <div class="modal-content">
-                    <div class="modal-heading">设置图片顺序</div>
-                    <div class="modal-inner">
+                    <div class="modal-header">设置图片顺序</div>
+                    <div class="modal-body">
                         <form onsubmit="return false;" id="form-sort">
                             <div class="form-group form-group-label">
                                 <label class="floating-label" for="sort">数字越大越靠前</label>
@@ -163,13 +172,13 @@
             $('#sort-modal').modal('hide');
             $.ajax({
                 type: "POST",
-                url:'/admin/picture/sort',
+                url:'{:U("Album/Picture/sortPic")}',
                 data:$('#form-sort').serialize(),
                 error: function(request) {
                     swal('Oops...', '服务器错误', 'error');
                 },
                 success: function(data) {
-                    if(data.status==200){
+                    if(data.status){
                         swal({
                             title: 'Success',
                             text: '设置成功',
@@ -182,7 +191,7 @@
                             }
                         });
                     }else {
-                        swal('Deleted!', '设置失败！<br />'+data.msg, 'error');
+                        swal('Deleted!', '设置失败！<br />'+data.info, 'error');
                     }
                     console.log(data);
                 }
@@ -194,15 +203,15 @@
          * @param aid
          * @param pid
          */
-        function setCover(aid,pid){
+        function setCover(url){
             $.ajax({
                 type: "POST",
-                url:'/admin/album/cover?aid='+aid+'&pid='+pid,
+                url:url,
                 error: function(request) {
                     swal('Oops...', '服务器错误', 'error');
                 },
                 success: function(data) {
-                    if(data.status==200){
+                    if(data.status){
                         swal({
                             title: 'Success',
                             text: '设置成功',
@@ -215,7 +224,7 @@
                             }
                         });
                     }else {
-                        swal('Deleted!', '设置失败！<br />'+data.msg, 'error');
+                        swal('Deleted!', '设置失败！<br />'+data.info, 'error');
                     }
                     console.log(data);
                 }

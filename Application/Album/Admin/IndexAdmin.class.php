@@ -143,6 +143,24 @@ class IndexAdmin extends AdminController {
     }
 
     /**
+     * 设置图集封面
+     * @author mohuishou<1@lailin.xyz>
+     * @param $aid 图集id
+     * @param $pid 相片id
+     */
+    public function setCover($aid,$pid){
+        $album_obj=D('Album');
+        $album_obj->cover=$pid;
+        $re=$album_obj->where('id='.$aid)->save();
+        if($re){
+            $this->success('封面设置成功');
+        }else{
+            $this->error('封面设置失败');
+        }
+    }
+
+
+    /**
      * 移动图集
      * @author mohuishou <1@lailin.xyz>
      */
