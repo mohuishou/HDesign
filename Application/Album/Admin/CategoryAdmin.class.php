@@ -77,7 +77,7 @@ EOF;
                 ->addTopButton('addnew', array('href' => U('add')))  // 添加新增按钮
                 ->addTopButton('resume')  // 添加启用按钮
                 ->addTopButton('forbid')  // 添加禁用按钮
-                ->setSearch('请输入ID/分类名称', U('index'))
+//                ->setSearch('请输入ID/分类名称', U('index'))
                 ->addTableColumn('id', 'ID')
                 ->addTableColumn('title_show', '分类')
                 ->addTableColumn('en_title', '英文标题')

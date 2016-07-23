@@ -17,6 +17,7 @@ class SliderModel extends Model {
      * 模块名称
      * @author jry <598821125@qq.com>
      */
+
     public $moduleName = 'Album';
 
     /**
@@ -32,9 +33,7 @@ class SliderModel extends Model {
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
-        array('title', 'require', '标题不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('title', '1,80', '标题长度为1-80个字符', self::EXISTS_VALIDATE, 'length'),
-        array('title', '', '标题已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
+        array('aid', 'require', '相册不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
     /**

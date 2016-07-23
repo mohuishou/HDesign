@@ -18,7 +18,7 @@ class IndexAdmin extends AdminController {
             //使用Builder快速建立列表页面
             $builder = new \Common\Builder\ListBuilder();
             $builder->setMetaTitle('相册管理') //设置页面标题
-                    ->setSearch('请输入ID/标题', U('index', array('cid' => $cid)))
+//                    ->setSearch('请输入ID/标题', U('index', array('cid' => $cid)))
                     ->addTableColumn('id', 'ID')
                     ->addTableColumn('create_time', '发布时间', 'time')
                     ->addTableColumn('sort', '排序', 'text')
