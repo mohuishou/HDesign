@@ -14,6 +14,7 @@ class PictureAdmin extends AdminController {
     public function index($aid){
         $pictures=D('Picture')->where('aid='.$aid)->order('sort desc')->select();
         $album_data=D('Album')->find($aid);
+        $this->assign('meta_title', "照片管理");
         $this->assign('pictures',$pictures);
 //        print_r($pictures);
         $this->assign('aid',$aid);
