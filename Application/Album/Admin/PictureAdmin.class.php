@@ -48,7 +48,7 @@ class PictureAdmin extends AdminController {
                 $album_data=D('Album')->find($aid);
                 if(!$album_data['cover']){
                     $album_obj=D('Album');
-                    $album_obj->cover=$picture_object->getField('id');
+                    $album_obj->cover=$picture_object->order('id desc')->getField('id');
                     if(!$album_obj->where('id='.$aid)->save()){
                         $this->error('封面设置错误','');
                     }

@@ -110,7 +110,7 @@ class CategoryModel extends Model {
 
         // 拼接分类地址
         foreach ($list as $key => &$val) {
-            $val['href'] = U($this->moduleName.'/Index/lists', array('cid' => $val['id']));
+            $val['href'] = U($this->moduleName.'/Index/index', array('cid' => $val['id']));
         }
 
         // 转换成树结构
