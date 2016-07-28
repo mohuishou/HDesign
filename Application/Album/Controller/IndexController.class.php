@@ -53,7 +53,7 @@ class IndexController extends HomeController {
         }
 
         $this->assign('meta_title',$meta_title);
-        $this->assign('cate',$cate);
+        $this->assign('category',$cate);
         $this->assign('category_two',$cate_two);
         $this->assign('albums',$album);
         $this->display();

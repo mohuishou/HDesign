@@ -28,6 +28,7 @@ class PictureAdmin extends AdminController {
      * @param $aid
      */
     public function add($aid){
+        
         $re=D('Admin/Upload')->upload();
 
         if($re['success']){
