@@ -1,0 +1,291 @@
+<extend name="$_admin_public_layout"/>
+
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/album/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/album/css/hover.css">
+    <style>
+        .bar {
+            height: 5px;
+            background: green;
+        }
+
+        .bar {
+            height: 5px;
+            background: green;
+        }
+
+        .img-list {
+            display: inline-block;
+            width: 330px;
+            max-width: 100%;
+            margin-top: 10px;
+            margin-right: 20px;
+            /*background: #EEEEEE;*/
+            /*border: 1px solid #eCeCeC;*/
+            /*padding: 5px;*/
+        }
+
+        .img-list a {
+
+        }
+
+        .img-list img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        #cover{
+            position: absolute;
+            right:0;
+            top:0px;
+            width:40px;
+            height:40px;
+
+        }
+
+        #picture-main{
+            margin-top: 20px;
+        }
+
+        .modal{
+            top:50px;
+        }
+
+        .modal-backdrop{
+            top:auto;
+            bottom: auto;
+        }
+    </style>
+
+</block>
+
+<block name="main">
+    <div class="col-xs-2">
+        <include file="Admin/Builder/tree" />
+    </div>
+    <div class="col-xs-10" id="picture-main">
+        <div class="form-group form-group-label">
+            <label class="btn btn-primary " for="pictures">上传图片</label>
+            <input class="form-control" multiple name="pictures[]" id="pictures" style="display: none;"
+                   type="file">
+        </div>
+        <div id="progress">
+            <div class="bar" style="width: 0%;"></div>
+        </div>
+
+        <volist name="pictures" id="picture">
+            <div class="box img-list">
+                <img class="img-thumbnail" src="{$picture.pid|get_cover}" />
+                <if condition="$cover eq $picture.id ">
+                    <img src="__PUBLIC__/album/images/cover.png" id="cover">
+                </if>
+                <div class="over-layer">
+                    <h3 class="title">操作</h3>
+                    <p class="description">
+                        <a class="btn btn-flat btn-brand-accent"
+                           onclick='del("{:U("Album/Picture/del",array("id"=>$picture["id"],"aid"=>$aid))}")'>点击删除</a>
+                        <a class="btn btn-flat btn-brand-accent"
+                           onclick='setCover("{:U("Album/Index/setCover",array("pid"=>$picture["id"],"aid"=>$aid))}")'>设为封面</a>
+                        <a class="btn btn-flat btn-brand-accent"
+                           onclick="sortPic('{$picture.id}','{$picture.sort}')">排序</a>
+                    </p>
+                </div>
+            </div>
+        </volist>
+
+
+
+        <div aria-hidden="true" class="modal modal-va-middle fade" id="sort-modal" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                    <div class="modal-header">设置图片顺序</div>
+                    <div class="modal-body">
+                        <form onsubmit="return false;" id="form-sort">
+                            <div class="form-group form-group-label">
+                                <label class="floating-label" for="sort">数字越大越靠前</label>
+                                <input class="form-control" id="sort" name="sort" type="number">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-flat btn-brand" onclick="sortPicGo()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="script">
+    <script src="__PUBLIC__/album/js/sweetalert2.min.js"></script>
+    <script src="__PUBLIC__/album/js/jquery.ui.widget.js"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="__PUBLIC__/album/js/jquery.iframe-transport.js"></script>
+    <script src="__PUBLIC__/album/js/jquery.fileupload.js"></script>
+
+    <script>
+
+        /**
+         * 图片批量上传
+         **/
+        $(function () {
+            $('#pictures').fileupload({
+                url: '{:U("Album/Picture/add",array("aid"=>$aid))}',
+                dataType: 'json',
+                done: function (e, data) {
+                    console.log(data.result);
+                    $('#progress .bar').css('display', 'none');
+                    if(data.result.status){
+                        swal({
+                            title: '添加成功',
+                            text: data.result.info,
+                            type: 'success'
+                        }).then(function(isConfirm) {
+                            location.reload();
+                        });
+                    }else {
+                        swal('警告','添加失败<br>'+data.result.info,'warning');
+                    }
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .bar').css(
+                            'width',
+                            progress + '%'
+                    );
+                }
+            });
+
+
+        });
+
+
+        function sortPic(id,sort) {
+            $('#form-sort').append("<input name='id' type='hidden' value='"+id+"'/>");
+            $('#sort').val(sort);
+            $('#sort-modal').modal('show');
+        }
+
+        function sortPicGo() {
+            $('#sort-modal').modal('hide');
+            $.ajax({
+                type: "POST",
+                url:'{:U("Album/Picture/sortPic")}',
+                data:$('#form-sort').serialize(),
+                error: function(request) {
+                    swal('Oops...', '服务器错误', 'error');
+                },
+                success: function(data) {
+                    if(data.status){
+                        swal({
+                            title: 'Success',
+                            text: '设置成功',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: '更新页面'
+                        }).then(function(isConfirm) {
+                            if (isConfirm === true) {
+                                location.reload();
+                            }
+                        });
+                    }else {
+                        swal('Deleted!', '设置失败！<br />'+data.info, 'error');
+                    }
+                    console.log(data);
+                }
+            });
+        }
+
+        /**
+         * 设置封面
+         * @param aid
+         * @param pid
+         */
+        function setCover(url){
+            $.ajax({
+                type: "POST",
+                url:url,
+                error: function(request) {
+                    swal('Oops...', '服务器错误', 'error');
+                },
+                success: function(data) {
+                    if(data.status){
+                        swal({
+                            title: 'Success',
+                            text: '设置成功',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: '更新页面'
+                        }).then(function(isConfirm) {
+                            if (isConfirm === true) {
+                                location.reload();
+                            }
+                        });
+                    }else {
+                        swal('Deleted!', '设置失败！<br />'+data.info, 'error');
+                    }
+                    console.log(data);
+                }
+            });
+        }
+
+        /**
+         * 删除
+         * @param url
+         */
+        function del(url) {
+            swal({
+                title: 'Are you sure?',
+                text: '你将要删除该图片',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it',
+            }).then(function(isConfirm) {
+                if (isConfirm === true) {
+                    $.ajax({
+                        type: "POST",
+                        url:url,
+                        error: function(request) {
+                            swal('Oops...', '服务器错误', 'error');
+                        },
+                        success: function(data) {
+                            if(data.status){
+                                swal({
+                                    title: 'Success',
+                                    text: '删除成功',
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonText: '更新页面'
+                                }).then(function(isConfirm) {
+                                    if (isConfirm === true) {
+                                        location.reload();
+                                    }
+                                });
+                            }else {
+                                swal(
+                                        'Deleted!',
+                                        '删除失败！<br />'+data.info,
+                                        'error'
+                                );
+                            }
+                            console.log(data);
+                        }
+                    });
+                } else if (isConfirm === false) {
+                    swal(
+                            'Cancelled',
+                            '该图片未被删除)',
+                            'error'
+                    );
+
+                } else {
+                    // Esc, close button or outside click
+                    // isConfirm is undefined
+                }
+            });
+        }
+    </script>
+</block>

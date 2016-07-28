@@ -1,30 +1,31 @@
 <?php
-namespace Album\Model;
+namespace Message\Model;
 use Think\Model;
 /**
  * 分类模型
  * @author mohuishou <1@lailin.xyz>
  */
-class AlbumModel extends Model
+class IndexModel extends Model
 {
     /**
      * 模块名称
      * @author mohuishou <1@lailin.xyz>
      */
-    public $moduleName = 'Album';
+    public $moduleName = 'Message';
 
 
-    protected $tableName = 'album_albums';
+    protected $tableName = 'message_index';
 
     /**
      * 自动验证规则
      * @author mohuishou <1@lailin.xyz>
      */
     protected $_validate = array(
-        array('title', 'require', '名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('title', '1,32', '名称长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-        array('title', 'checkTitle', '名称已经存在', self::MUST_VALIDATE, 'callback', self::MODEL_INSERT),
-        array('cid', 'require', '分类不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('name', 'require', '姓名不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('name', '2,5', '名称长度为2-5个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
+        array('email', 'require', '邮箱不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('tel', 'require', '电话不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('message', 'require', '留言不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
     /**
@@ -66,11 +67,7 @@ class AlbumModel extends Model
             ->where($map)
             ->select();
 
-        //渲染管理地址
-        foreach ($return_list as &$val){
-            $val['href'] = U($this->moduleName.'/Picture/index', array('aid' => $val['id']));
-            $val['title_url'] = '<a target="_blank" href="'.U($this->moduleName.'/Picture/index', array('aid' => $val['id'])).'">'.$val['title'].'</a>';
-        }
+//
 
 
         return $return_list;
