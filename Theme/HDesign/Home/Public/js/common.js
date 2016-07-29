@@ -10,6 +10,11 @@ $(document).ready(function () {
     deviceWidth = 0;
     deviceHeight = 0;
     mobileSubNavActive = false;
+
+    var cnzz_html=$("#cnzz_stat_icon_1259858308").html();
+    $("#cnzz_stat_icon_1259858308").html('');
+    $("#footer .social").append(cnzz_html);
+
 // Detect mobile
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/Android/i))) {
         deviceWidth = $(window).width();
@@ -255,4 +260,6 @@ $('#icon-wx').click(function () {
         wx_i=1;
     }
 });
+
+
 

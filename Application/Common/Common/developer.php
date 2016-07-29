@@ -15,6 +15,7 @@
  */
 function getCategory(){
     $album_cat=D('Album/Category')->getCategoryTree();
+    
     $cms_cat=D('Cms/Category')->getCategoryTree();
     $categories=array_merge($album_cat,$cms_cat);
     return $categories;

@@ -36,8 +36,12 @@
                             </php>
                             <volist name=":getCategory()" id="cate">
                                 <a href="{$cate.href}" >
-                                    <!--<p>{$cate.en_title}</p>-->
-                                    <p>{$cate.title}</p>
+
+                                    <empty name="cate['en_title']">
+                                        {$cate.title}
+                                        <else />
+                                        {$cate.en_title}
+                                    </empty>
                                 </a>
                             </volist>
 
@@ -71,8 +75,12 @@
                     <div id="main-header">
                         <volist name=":getCategory()" id="cate">
                             <a href="{$cate.href}" >
-                                <!--<p>{$cate.en_title}</p>-->
-                                {$cate.title}
+                                <empty name="cate['en_title']">
+                                    {$cate.title}
+                                    <else />
+                                    {$cate.en_title}
+                                </empty>
+
                             </a>
                         </volist>
                     </div>
