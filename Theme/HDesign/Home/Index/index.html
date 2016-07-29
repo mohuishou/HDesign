@@ -1,0 +1,60 @@
+<extend name="$_home_public_layout" />
+<block name="main-header">
+
+</block>
+<block name="main">
+    <div id="home-bgs-container">
+        <div class="home-bg-container" id="home-bg-container-static">
+            <img src="" alt="" />
+            <h3></h3>
+        </div>
+        <div class="home-bg-container" id="home-bg-container-animated">
+            <img src="" alt="" />
+            <h3></h3>
+        </div>
+
+        <div id="home-bgs-timers">
+            <div class="home-bg-timer" id="home-bg-timer-1">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-2">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-3">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-4">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+            <div class="home-bg-timer" id="home-bg-timer-5">
+                <div class="home-bg-timer-wrapper"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="home-cover">
+        <img class="cover-1" src="__HOME_IMG__/index/logo_splash_1.png"/>
+        <img class="cover-2" src="__HOME_IMG__/index/logo_splash_2.png"/>
+    </div>
+
+</block>
+
+<block name="script">
+    <script src="__HOME_JS__/home.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Global variables
+            homeImageCount = '{{count($sliders)}}'; // Max 5
+
+            <volist name="sliders" id="slider">
+                homeImage{$i}File ='{$slider.cover|get_cover}';
+                homeImage{$i}Title ='{$slider.title}';
+                homeImage{$i}FileWidth = '1000';
+                homeImage{$i}FileHeight = '667';
+                homeImage{$i}Link = "{:U('Album/Index/album',array('aid'=>$slider['aid']))}";
+            </volist>
+
+
+        });
+    </script>
+</block>

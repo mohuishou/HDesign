@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}－{:C('WEB_SITE_SLOGAN')}</title></block>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="keywords" content="{$meta_keywords}">
+    <meta name="description" content="{$meta_description}">
+    <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.min.css">
+    <link rel="stylesheet" href="__HOME_CSS__/styles.css" />
+    <link rel="stylesheet" href="__HOME_CSS__/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/home.css">
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/album/styles.css">
+
+    <script type="text/javascript" src="__PUBLIC__/libs/jquery/1.x/jquery.min.js"></script>
+    <block name="style">
+
+    </block>
+</head>
+
+<body>
+<div class="clearfix hook hook-page-header">
+    {:hook('PageHeader')} <!-- 文档开始钩子 -->
+</div>
+
+<block name="wrap">
+    <div class="clearfix full-wrap">
+        <div class="clearfix full-header">
+            <block name="header">
+                <block name="main-nav">
+                    <nav>
+                        <div id="nav-wrapper">
+                            <php>
+                                getCategory();
+                            </php>
+                            <volist name=":getCategory()" id="cate">
+                                <a href="{$cate.href}" >
+                                    <!--<p>{$cate.en_title}</p>-->
+                                    <p>{$cate.title}</p>
+                                </a>
+                            </volist>
+
+
+                        </div>
+                    </nav>
+                    <header>
+                        <a href="javascript:headerLogoClick();" id="header-logo">
+                            <img src="__HOME_IMG__/index/logo_header.png"/>
+                        </a>
+                        <a href="javascript:openNav();" id="header-menu">
+                        <span id="menu-icon">
+                            <span></span>
+                        </span>
+                            <span id="menu-text">MENU</span>
+                        </a>
+                        <a href="javascript:openContact();" id="header-contact">
+                            <img src="__HOME_IMG__/index/icon_phone.png"/>
+                            <span>CONTACT</span>
+                        </a>
+                    </header>
+                    <div id="header-border-top"></div>
+                    <include file="./Theme/HDesign/Home/Public/contact.html" />
+                </block>
+            </block>
+        </div>
+
+        <div class="clearfix full-container">
+            <div id="main" class="main">
+                <block name="main-header">
+                    <div id="main-header">
+                        <volist name=":getCategory()" id="cate">
+                            <a href="{$cate.href}" >
+                                <!--<p>{$cate.en_title}</p>-->
+                                {$cate.title}
+                            </a>
+                        </volist>
+                    </div>
+                </block>
+
+                <block name="main">这里是内容</block>
+            </div>
+        </div>
+
+
+    </div>
+</block>
+<div class="clearfix full-foooter">
+    <block name="footer">
+    </block>
+</div>
+<div class="clearfix hook hook-page-footer">
+    <!--{:hook('PageFooter')}-->
+    <!-- 文档末尾钩子 -->
+</div>
+
+<div class="clearfix full-script">
+    <div class="container-fluid">
+        <script src="__HOME_JS__/jquery.address-1.5.min.js"></script>
+        <script src="__HOME_JS__/modernizr.custom.33755.js"></script>
+        <script src="__HOME_JS__/gistfile1.js"></script>
+        <script src="__HOME_JS__/velocity.min.js"></script>
+        <script src="__HOME_JS__/common.js"></script>
+        <script src="__HOME_JS__/sweetalert2.min.js"></script>
+        <script>
+            function msgAdd() {
+                if(!$('#name').val()){
+                    swal('警告','姓名不能为空','warning');
+                    return false;
+                }
+
+                if(!$('#tel').val()){
+                    swal('警告','手机号不能为空','warning');
+                    return false;
+                }
+
+                if(!$('#email').val()){
+                    swal('警告','邮箱不能为空','warning');
+                    return false;
+                }
+
+                if(!$('#comment').val()){
+                    swal('警告','留言不能为空','warning');
+                    return false;
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url:'{:U("Message/Index/add")}',
+                    data:$('#contact-msg').serialize(),
+                    error: function(request) {
+                        swal('警告','服务器错误','warning');
+                    },
+                    success: function(data) {
+                        if(data.status){
+                            swal({
+                                title: '添加成功',
+                                text: '添加成功',
+                                type: 'success'
+                            }).then(function(isConfirm) {
+                                location.reload();
+                            });
+                        }else {
+                            swal('警告','添加失败，请稍后重试','warning');
+                        }
+                        console.log(data);
+                    }
+                });
+                return false;
+            }
+        </script>
+        <block name="script"></block>
+        {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
+    </div>
+</div>
+</body>
+</html>

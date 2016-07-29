@@ -1,0 +1,76 @@
+<extend name="$_home_public_layout"/>
+<block name="style">
+
+</block>
+<block name="main">
+
+
+    <div id="left_col">
+        <div class="portlet" id="yw0">
+            <div class="portlet-decoration">
+                <div class="portlet-title">Careers</div>
+            </div>
+            <div class="portlet-content">
+                <ul class="operations" id="left_menu">
+                    <volist name="volist" id="vo">
+                        <li>
+                            <a href="#" onclick="career({$i-1})">{$vo.title}</a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="left_col_bg"></div>
+    <div id="wrapper">
+        <div class="content">
+            <div id="jobs">
+                <div class="job">
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</block>
+<block name="footer">
+    <include file="./Theme/HDesign/Home/Public/footer.html" />
+</block>
+<block name="script">
+    <script>
+
+        var all_data=<php>echo json_encode($volist);</php>;
+        career(0);
+        function career(id) {
+            var data=all_data[id];
+            if(data.end_time){
+                var t=new Date(data.end_time*1000);
+                var end_time=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDay();
+            }else {
+                var end_time="长期有效";
+            }
+
+            var requires=data.need.split("\r\n");
+            console.log(requires);
+            var req_str='';
+            for(var i=0;i<requires.length;i++){
+                req_str+='<li>'+requires[i]+'</li>';
+            }
+
+            var str='<h1>'+data.title+'</h1>'+
+                    '                    <h3>Requirements:</h3>'+
+                    '                    <ul>'+req_str+'</ul>'+
+                    '                    <p>Contact:<br/>'+data.contact+'</p>'+
+                    '                    <p>Released Date:'+end_time+'</p>';
+            var $job=$("#jobs .job");
+            if(id!=0)
+            $job.hide();
+            $job.fadeIn().html(str);
+        }
+
+
+    </script>
+</block>

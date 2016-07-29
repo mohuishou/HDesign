@@ -3,7 +3,7 @@
 
 /Runtime/
 /Uploads/
-/Theme/
+
 /node_modules/
 
 !*.md

@@ -1,0 +1,21 @@
+<extend name="$_home_public_layout"/>
+<block name="style">
+    <link rel="stylesheet" href="__HOME_CSS__/about.css" />
+</block>
+<block name="main">
+    <div id="about-leadership-container" class="about-container" style="display: block;">
+        <div class="about-text-container" style="width: 100%;">
+           <p>
+               {$volist[0]['description']}
+           </p>
+        </div>
+        <div class="about-image-container" style="display: none;">
+            <img src="{$volist[0]['cover']|get_cover}" alt="" class="animate-fade-in-1"
+                 style="display: inline; height: 1200px; width: 960px; left: 0px;">
+        </div>
+    </div>
+
+</block>
+<block name="script">
+    <script src="__HOME_JS__/about.js"></script>
+</block>

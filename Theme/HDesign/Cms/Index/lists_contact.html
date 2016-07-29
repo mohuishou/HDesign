@@ -1,0 +1,52 @@
+<extend name="$_home_public_layout"/>
+<block name="style">
+    <style>
+        .icon img{
+            width:15px;
+        }
+    </style>
+</block>
+<block name="main">
+
+    <div id="content">
+        <div id="contact">
+            <h1>Contact Us</h1>
+            <div id="address_list">
+                <volist name="volist" id="vo">
+                    <div class="address">
+                        <table>
+                            <tr>
+                                <td colspan="2"><h3>{$vo.title}</h3></td>
+                            </tr>
+                            <tr>
+                                <td class="icon"><img src="__HOME_IMG__/tel.png"></td>
+                                <td>{$vo.tel}</td>
+                            </tr>
+                            <tr>
+                                <td class="icon"><img src="__HOME_IMG__/email.png" alt="E-mail" title="E-mail"></td>
+                                <td><a href="mailto:sld@steveleung.com">{$vo.email}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="icon"><img src="__HOME_IMG__/address.png" alt="Address" title="Address"></td>
+                                <td>{$vo.address}</td>
+                            </tr>
+                            <tr>
+                                <td class="icon"><img src="__HOME_IMG__/qq.png" alt="Address" title="Address"></td>
+                                <td>{$vo.qq}</td>
+                            </tr>
+                            <tr>
+                                <td class="icon"><img src="__HOME_IMG__/user.png" alt="Address" title="Address"></td>
+                                <td>{$vo.name}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </volist>
+            </div>
+        </div>
+    </div>
+
+
+</block>
+<block name="footer">
+    <include file="./Theme/HDesign/Home/Public/footer.html" />
+</block>
