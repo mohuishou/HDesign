@@ -141,7 +141,7 @@ table img.arrow {
 }
 #left_col .portlet-title {
 	/*background: url('../../img/bg2.jpg') repeat;*/
-	width: 210px;
+	/*width: 210px;*/
 	font-family: 'Lato', cursive;
 	padding: 10px 30px 20px 30px;
 	font-size: 36px;

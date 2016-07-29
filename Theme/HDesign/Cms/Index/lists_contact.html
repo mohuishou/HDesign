@@ -7,6 +7,15 @@
         .address h3{
             color: #bd7000;
         }
+
+        .wx{
+            text-align: center;
+        }
+        
+
+        .wx img{
+            width: 240px;
+        }
     </style>
 </block>
 <block name="main">
@@ -43,6 +52,12 @@
                             </tr>
                         </table>
                     </div>
+                    <notempty name="vo['wx']">
+                        <div class="address wx">
+                            <h3>微信扫一扫关注我们</h3>
+                            <img src="{$vo.wx|get_cover}">
+                        </div>
+                    </notempty>
                 </volist>
             </div>
         </div>
