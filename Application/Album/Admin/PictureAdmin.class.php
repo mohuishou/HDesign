@@ -30,11 +30,22 @@ class PictureAdmin extends AdminController {
     public function add($aid){
         
         $re=D('Admin/Upload')->upload();
+        $base_path= dirname(dirname(dirname(dirname(__FILE__))));
+        $pic_path=$re['path'];
+
+
+        $image = new \Think\Image();
+        $image->open($pic_path);
+        $thumb_path_r='./Uploads/thumb/'.md5($re['name']).".jpg";
+        $thumb_path=$thumb_path_r;
+        // 按照原图的比例生成一个的缩略图并保存为thumb.jpg
+        $image->thumb(286, 190)->save($thumb_path);
 
         if($re['success']){
             $picture_object=D('Picture');
             $data['aid']=$aid;
             $data['pid']=$re['id'];
+            $data['thumb']=$thumb_path_r;
             $res=$picture_object->create($data);
 
             if(!$res){

@@ -49,7 +49,7 @@ class IndexController extends HomeController {
         $pic_obj=D('Picture');
 
         foreach ($album as &$v){
-            $v['cover']=$pic_obj->find($v['cover'])['pid'];
+            $v['thumb']=$pic_obj->find($v['cover'])['thumb'];
         }
 
         $this->assign('meta_title',$meta_title);
