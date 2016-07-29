@@ -254,7 +254,7 @@ header {
 
 a#header-logo {
 	position: absolute;
-	top: 18px;
+	top: 5px;
 	left: 50%;
 	margin-left: -70px;
 }
