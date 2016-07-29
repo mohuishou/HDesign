@@ -149,7 +149,7 @@ table img.arrow {
 	color: #636466;
 }
 #left_col .portlet-title span {
-	color:#FF6600;
+	color:#bd7000;
 }
 #left_menu {
 	margin: 25px 0 0 30px;
@@ -715,8 +715,8 @@ table img.arrow {
 	margin-bottom: 5px;
 }
 #project_image .info .left_col .title span {
-	color: #FF6600;
-	font-size: 25px;
+	color: #bd7000;
+	font-size: 15px;
 }
 #project_image .info .left_col .year {
 	font-size: 13px;
