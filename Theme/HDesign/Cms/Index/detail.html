@@ -58,8 +58,8 @@
                             <ul class="list-unstyled list-inline">
                                 <li><i class="fa fa-calendar"></i> {$info.create_time|time_format}</li>
                                 <li><i class="fa fa-eye"></i> {$info.view} 浏览</li>
-                                <li><i class="fa fa-comments"></i> {$info.comment} 评论</li>
-                                <li><i class="fa fa-thumbs-o-up"></i> {$info.good} 赞</li>
+                                <!--<li><i class="fa fa-comments"></i> {$info.comment} 评论</li>-->
+                                <!--<li><i class="fa fa-thumbs-o-up"></i> {$info.good} 赞</li>-->
                                 <li class="hidden-xs pull-right">{:hook('BaiduShare')}</li>
                             </ul>
                         </div>
@@ -110,8 +110,10 @@
     <script type="text/javascript">
         $(function(){
             //显示图片
-            var img_path=$(".lazy").attr("data-lazy");
-            $(".lazy").attr("src",img_path);
+            $(".lazy").each(function () {
+                var img_path=$(this).attr("data-lazy");
+               $(this).attr("src",img_path);
+            });
 
 
             // 收藏物品

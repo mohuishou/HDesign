@@ -152,7 +152,7 @@ EOF;
                     ->addTopButton('self', $move_attr) //添加移动按钮
                     ->setSearch('请输入ID/标题', U('index', array('cid' => $cid)))
                     ->addTableColumn('id', 'ID')
-                    ->addTableColumn('title_url', '标题');
+                    ->addTableColumn('title', '标题');
 
             //动态生成列表显示的字段
             if ($attribute_list) {

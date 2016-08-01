@@ -48,7 +48,7 @@
             var data=all_data[id];
             if(data.end_time){
                 var t=new Date(data.end_time*1000);
-                var end_time=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDay();
+                var end_time=t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate();
             }else {
                 var end_time="长期有效";
             }

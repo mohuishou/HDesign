@@ -39,7 +39,11 @@ class PictureAdmin extends AdminController {
         $thumb_path_r='./Uploads/thumb/'.md5($re['name']).".jpg";
         $thumb_path=$thumb_path_r;
         // 按照原图的比例生成一个的缩略图并保存为thumb.jpg
-        $image->thumb(286, 190)->save($thumb_path);
+        try {
+            $image->thumb(286, 190)->save($thumb_path);
+        }catch (Exception $e){
+            $this->error("生成缩略图错误");
+        }
 
         if($re['success']){
             $picture_object=D('Picture');
